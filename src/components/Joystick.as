@@ -68,6 +68,7 @@ public class Joystick extends Sprite
 		trace("mouse down");
 		this.isMouseDown = true;
 		Laya.stage.on(Event.MOUSE_UP, this, onMouseUpHandler);
+		Laya.stage.on(Event.MOUSE_OUT, this, onMouseUpHandler);
 		this.frameLoop(1, this, loopHandler)
 	}
 	
@@ -102,11 +103,12 @@ public class Joystick extends Sprite
 	{
 		this.isMouseDown = false;
 		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
+		Laya.stage.off(Event.MOUSE_OUT, this, onMouseUpHandler);
 		this.clearTimer(this, loopHandler);
 		
 		
-		this.stickImg.x = this.baseImg.width / 2;
-		this.stickImg.y = this.baseImg.height / 2;
+		this.stickImg.x = this.prevPt.x;
+		this.stickImg.y = this.prevPt.y;
 	}
 	
 	/**
@@ -121,18 +123,14 @@ public class Joystick extends Sprite
 			if (!this.baseImg)
 			{
 				this.baseImg = new Image(base);
+				this.baseImg.anchorX = .5;
+				this.baseImg.anchorY = .5;
 				this.addChild(this.baseImg);
 			}
 			else
 			{
 				this.baseImg.skin = base;
 			}
-			this.size(this.baseImg.width, this.baseImg.height);
-			this.pivot(this.baseImg.width / 2, this.baseImg.height / 2);
-			this.prevPt.x = this.width / 2;
-			this.prevPt.y = this.height / 2;
-			this.curPt.x = this.prevPt.x;
-			this.curPt.y = this.prevPt.y;
 		}
 		
 		if (stick)
@@ -142,8 +140,6 @@ public class Joystick extends Sprite
 				this.stickImg = new Image(stick);
 				this.stickImg.anchorX = .5;
 				this.stickImg.anchorY = .5;
-				this.stickImg.x = this.baseImg.x + this.baseImg.width / 2;
-				this.stickImg.y = this.baseImg.y + this.baseImg.height / 2;
 				this.addChild(this.stickImg);
 			}
 			else
@@ -151,6 +147,7 @@ public class Joystick extends Sprite
 				this.stickImg.skin = stick;
 			}
 		}
+		this.setStickPos(this.prevPt.x, this.prevPt.y);
 	}
 	
 	/**
@@ -160,17 +157,21 @@ public class Joystick extends Sprite
 	 */
 	public function setStickPos(x:Number, y:Number):void
 	{
+		this.prevPt.x = x;
+		this.prevPt.y = y;
+		this.curPt.x = this.prevPt.x;
+		this.curPt.y = this.prevPt.y;
 		if (this.baseImg)
 		{
 			this.baseImg.x = x;
 			this.baseImg.y = y;
-			if (this.stickImg)
-			{
-				this.stickImg.x = this.baseImg.x + this.baseImg.width / 2;
-				this.stickImg.y = this.baseImg.y + this.baseImg.height / 2;
-			}
+			
 		}
-
+		if (this.stickImg)
+		{
+			this.stickImg.x = x;
+			this.stickImg.y = y;
+		}
 	}
 	
 	/**
