@@ -10,8 +10,6 @@ public class Main
 	public function Main() 
 	{
 		Laya.init(1136, 640);
-		trace("inini")
 	}
-	
 }
 }
