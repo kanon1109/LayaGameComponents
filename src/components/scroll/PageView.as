@@ -1,4 +1,4 @@
-package components 
+package components.scroll 
 {
 import laya.ui.Label;
 import laya.utils.Ease;

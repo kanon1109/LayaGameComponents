@@ -30,12 +30,12 @@ public class TabBarTest extends Sprite
 		this.txt.x = 300;
 		this.txt.y = 150;
 		this.txt.color = "#FF0000";
-		this.txt.size = 20;
+		this.txt.fontSize = 20;
 		this.addChild(this.txt);
 		
 		this.titleLabel = new Label("tabBar测试");
 		this.titleLabel.color = "#FFFFFF";
-		this.titleLabel.size = 40;
+		this.titleLabel.fontSize = 30;
 		this.titleLabel.x = 5;
 		this.titleLabel.bold = true;
 		this.addChild(this.titleLabel);
@@ -47,7 +47,7 @@ public class TabBarTest extends Sprite
 						Handler.create(this, tabClickHandler, null, false), 
 						Handler.create(this, tabDsableClickHandler, null, false));
 		this.tabBar.setSelectedByIndex(1);
-		this.tabBar.setDsableByIndex(3);
+		this.tabBar.setDsableByIndex(3, true);
 		this.tabBar.setSelectedPosOffset(0, -21);
 		this.addChild(this.tabBar);
 	}

@@ -173,12 +173,10 @@ public class TabBar extends Sprite
 	public function setDsableByIndex(index:int, flag:Boolean):void
 	{
 		if (index < 0 || index > this.dsableImgAry.length - 1) return;
-		this.normalImgAry[index].visible = false;
-		this.selectedImgAry[index].visible = false;
-		this.dsableImgAry[index].visible = true;
-		var btn:Button = this.btnAry[index];
-		btn.mouseEnabled = true;
-		this.dsableAry[index] = true;
+		this.normalImgAry[index].visible = !flag;
+		this.selectedImgAry[index].visible = !flag;
+		this.dsableImgAry[index].visible = flag;
+		this.dsableAry[index] = flag;
 	}
 }
 }
