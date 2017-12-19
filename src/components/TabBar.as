@@ -178,5 +178,49 @@ public class TabBar extends Sprite
 		this.dsableImgAry[index].visible = flag;
 		this.dsableAry[index] = flag;
 	}
+	
+	/**
+	 * 销毁
+	 */
+	public function destroy():void
+	{
+		var length:int = this.normalImgAry.length;
+		var img:Image;
+		for (var i:int = 0; i < length; i++) 
+		{
+			img = this.normalImgAry[i];
+			img.removeSelf();
+		}
+		
+		length = this.selectedImgAry.length;
+		for (i = 0; i < length; i++) 
+		{
+			img = this.selectedImgAry[i];
+			img.removeSelf();
+		}
+		
+		length = this.dsableImgAry.length;
+		for (i = 0; i < length; i++) 
+		{
+			img = this.dsableImgAry[i];
+			img.removeSelf();
+		}
+		
+		length = this.btnAry.length;
+		for (i = 0; i < length; i++) 
+		{
+			var btn:Button = this.btnAry[i];
+			btn.removeSelf();
+		}
+		
+		this.normalImgAry = null;
+		this.selectedImgAry = null;
+		this.dsableImgAry = null;
+		this.btnAry = null;
+		
+		this.tabClickHandler = null;
+		this.tabDsableClickHandler = null;
+		this.removeSelf();
+	}
 }
 }

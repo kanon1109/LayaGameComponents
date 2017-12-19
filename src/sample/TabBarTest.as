@@ -10,18 +10,24 @@ import laya.utils.Handler;
  * ...切换标签测试
  * @author Kanon
  */
-public class TabBarTest extends Sprite 
+public class TabBarTest extends SampleBase 
 {
 	private var tabBar:TabBar;
 	private var txt:Label;
-	private var titleLabel:Label;
 	public function TabBarTest() 
 	{
+		
+	}
+	
+	override public function init():void 
+	{
+		super.init();
 		var arr:Array = [];
 		arr.push({url:"res/tab.png", type:Loader.IMAGE});
 		arr.push({url:"res/tabSelected.png", type:Loader.IMAGE});
 		arr.push({url:"res/dsableTab.png", type:Loader.IMAGE});
 		Laya.loader.load(arr, Handler.create(this, loadImgComplete), null, Loader.IMAGE);
+		this.titleLabel.text = "tabBar";
 	}
 	
 	private function loadImgComplete():void
@@ -32,13 +38,6 @@ public class TabBarTest extends Sprite
 		this.txt.color = "#FF0000";
 		this.txt.fontSize = 20;
 		this.addChild(this.txt);
-		
-		this.titleLabel = new Label("tabBar测试");
-		this.titleLabel.color = "#FFFFFF";
-		this.titleLabel.fontSize = 30;
-		this.titleLabel.x = 5;
-		this.titleLabel.bold = true;
-		this.addChild(this.titleLabel);
 		
 		this.tabBar = new TabBar();
 		this.tabBar.x = 100;
@@ -61,6 +60,24 @@ public class TabBarTest extends Sprite
 	private function tabClickHandler(index:int):void 
 	{
 		this.txt.text = "当前第" + (index + 1) + "标签";
+	}
+	
+	/**
+	 * 销毁
+	 */
+	override public function destroy():void
+	{
+		if (this.tabBar)
+		{
+			this.tabBar.destroy();
+			this.tabBar = null;
+		}
+		if (this.txt)
+		{
+			this.txt.removeSelf();
+			this.txt = null;
+		}
+		super.destroy();
 	}
 }
 }
