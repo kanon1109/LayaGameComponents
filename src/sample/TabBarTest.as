@@ -55,6 +55,7 @@ public class TabBarTest extends Sprite
 	private function tabDsableClickHandler(index:int):void 
 	{
 		this.txt.text = "当前第" + (index + 1) + "标签不开放";
+		//this.tabBar.setDsableByIndex(3, false);
 	}
 	
 	private function tabClickHandler(index:int):void 

@@ -415,7 +415,8 @@ public class PageView extends ScrollView
 			if (this.content.height > 0 && this.content.y < this.viewHeight - this.content.height)
 				this.content.y = this.viewHeight - this.content.height;
 		}
-		if (this.updatePageCell) this.updatePageCell.run();
+		if (this.updatePageCell) 
+			this.updatePageCell.run();
 	}
 	
 	/**

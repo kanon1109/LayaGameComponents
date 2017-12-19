@@ -174,7 +174,7 @@ public class TabBar extends Sprite
 	{
 		if (index < 0 || index > this.dsableImgAry.length - 1) return;
 		this.normalImgAry[index].visible = !flag;
-		this.selectedImgAry[index].visible = !flag;
+		this.selectedImgAry[index].visible = false;
 		this.dsableImgAry[index].visible = flag;
 		this.dsableAry[index] = flag;
 	}
