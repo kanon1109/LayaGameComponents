@@ -3,6 +3,7 @@ package sample
 import components.TabBar;
 import laya.display.Sprite;
 import laya.net.Loader;
+import laya.ui.Label;
 import laya.utils.Handler;
 
 /**
@@ -12,6 +13,8 @@ import laya.utils.Handler;
 public class TabBarTest extends Sprite 
 {
 	private var tabBar:TabBar;
+	private var txt:Label;
+	private var titleLabel:Label;
 	public function TabBarTest() 
 	{
 		var arr:Array = [];
@@ -23,6 +26,20 @@ public class TabBarTest extends Sprite
 	
 	private function loadImgComplete():void
 	{
+		this.txt = new Label();
+		this.txt.x = 300;
+		this.txt.y = 150;
+		this.txt.color = "#FF0000";
+		this.txt.size = 20;
+		this.addChild(this.txt);
+		
+		this.titleLabel = new Label("tabBar测试");
+		this.titleLabel.color = "#FFFFFF";
+		this.titleLabel.size = 40;
+		this.titleLabel.x = 5;
+		this.titleLabel.bold = true;
+		this.addChild(this.titleLabel);
+		
 		this.tabBar = new TabBar();
 		this.tabBar.x = 100;
 		this.tabBar.y = 200;
@@ -31,18 +48,18 @@ public class TabBarTest extends Sprite
 						Handler.create(this, tabDsableClickHandler, null, false));
 		this.tabBar.setSelectedByIndex(1);
 		this.tabBar.setDsableByIndex(3);
-		this.tabBar.setSelectedPosOffset(0, -22);
+		this.tabBar.setSelectedPosOffset(0, -21);
 		this.addChild(this.tabBar);
 	}
 	
 	private function tabDsableClickHandler(index:int):void 
 	{
-		trace("not open", index);
+		this.txt.text = "当前第" + (index + 1) + "标签不开放";
 	}
 	
 	private function tabClickHandler(index:int):void 
 	{
-		trace("index", index);
+		this.txt.text = "当前第" + (index + 1) + "标签";
 	}
 }
 }
