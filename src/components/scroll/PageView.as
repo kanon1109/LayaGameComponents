@@ -4,6 +4,7 @@ import laya.ui.Label;
 import laya.utils.Ease;
 import laya.utils.Handler;
 import laya.utils.Tween;
+import components.scroll.Cell;
 /**
  * ...翻页滚动组件
  * bug [] 为解决
@@ -280,9 +281,9 @@ public class PageView extends ScrollView
 	 * 根据页数索引获取页cell
 	 * @param	index	页数索引
 	 */
-	private function getPageCellByIndex(index:int):void
+	private function getPageCellByIndex(index:int):Cell
 	{
-		if (!this.cellList) return;
+		if (!this.cellList) return null;
 		if (index < 0) index = 0
 		else if (index > this.cellList.length - 1) index = this.cellList.length - 1;
 		return this.cellList[index];

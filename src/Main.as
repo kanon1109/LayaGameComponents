@@ -53,8 +53,7 @@ public class Main
 	
 	private function loadSample():void
 	{
-		var sample:Sprite = this.sampleTestArr[this.index];
-		Laya.stage.addChild(sample);
+		Laya.stage.addChild(this.sampleTestArr[this.index]);
 	}
 	
 	private function prevBtnClickHandler():void 
