@@ -33,7 +33,7 @@ public class ListViewTest extends SampleBase
 	override public function init():void 
 	{
 		super.init();
-		this.titleLabel.text = "listView tableView scrollView pageView";
+		this.titleLabel.text = "listView scrollView tableView pageView";
 		var arr:Array = [];
 		arr.push({url:"res/itemBg.png", type:Loader.IMAGE});
 		Laya.loader.load(arr, Handler.create(this, loadImgComplete), null, Loader.IMAGE);
@@ -47,7 +47,7 @@ public class ListViewTest extends SampleBase
 		this.scrollList = new ListView();
 		this.scrollList.setViewSize(100, 200);
 		this.scrollList.gap = 10;
-		this.scrollList.x = 50;
+		this.scrollList.x = 20;
 		this.scrollList.y = 100;
 		this.scrollList.isShowDebug = true;
 		this.addChild(this.scrollList);
@@ -67,7 +67,7 @@ public class ListViewTest extends SampleBase
 		for (i = 0; i < this.count; i++) 
 		{
 			var img:Image = new Image("res/itemBg.png");
-			img.x = i * 50;
+			img.x = 0;
 			img.y = i * 30;
 			this.scroll.addToContent(img);
 		}
