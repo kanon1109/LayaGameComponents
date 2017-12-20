@@ -227,5 +227,29 @@ public class SimpleButton extends Sprite
 		}
 	}
 	
+	/**
+	 * 销毁
+	 */
+	public function destroySelf():void
+	{
+		if (this.normalImg)
+		{
+			this.normalImg.removeSelf();
+			this.normalImg = null;
+		}
+		
+		if (this.text)
+		{
+			this.text.removeSelf();
+			this.text = null;
+		}
+		
+		this.off(Event.MOUSE_DOWN, this, onMouseDownHandler);
+		this.off(Event.MOUSE_UP, this, onMouseUpHandler);
+		
+		this.destroy();
+		this.removeSelf();
+	}
+	
 }
 }

@@ -182,7 +182,7 @@ public class TabBar extends Sprite
 	/**
 	 * 销毁
 	 */
-	public function destroy():void
+	public function destroySelf():void
 	{
 		var length:int = this.normalImgAry.length;
 		var img:Image;
@@ -221,6 +221,7 @@ public class TabBar extends Sprite
 		this.tabClickHandler = null;
 		this.tabDsableClickHandler = null;
 		this.removeSelf();
+		this.destroy();
 	}
 }
 }

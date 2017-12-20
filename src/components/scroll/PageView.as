@@ -164,7 +164,11 @@ public class PageView extends ScrollView
 		for (var i:int = count - 1; i >= 0; --i) 
 		{
 			var cell:Cell = this.cellList[i];
-			if(cell) cell.removeSelf();
+			if (cell) 
+			{
+				cell.destroy();
+				cell.removeSelf();
+			}
 			this.cellList.splice(i, 1);
 		}
 	}
@@ -491,5 +495,17 @@ public class PageView extends ScrollView
 	}
 	
 	public function get totalPageCount():int {return _totalPageCount; }
+	
+	
+	/**
+	 * 销毁
+	 */
+	override public function destroySelf():void
+	{
+		this.removeAllCell();
+		this.updateTableCell = null;
+		this.updatePageCell = null;
+		super.destroySelf();
+	}
 }
 }

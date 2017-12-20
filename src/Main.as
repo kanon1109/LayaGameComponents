@@ -63,15 +63,15 @@ public class Main
 	
 	private function loadSample():void
 	{
-		var sample:SampleBase = this.sampleTestArr[this.index];
-		sample.init();
-		Laya.stage.addChild(sample);
+		var sampleTest:SampleBase = this.sampleTestArr[this.index];
+		sampleTest.init();
+		Laya.stage.addChild(sampleTest);
 	}
 	
 	private function destroySample():void
 	{
-		var sample:SampleBase = this.sampleTestArr[this.prevIndex];
-		sample.destroy();
+		var sampleTest:SampleBase = this.sampleTestArr[this.prevIndex];
+		sampleTest.destroySelf();
 	}
 	
 	private function prevBtnClickHandler():void 

@@ -65,11 +65,11 @@ public class TabBarTest extends SampleBase
 	/**
 	 * 销毁
 	 */
-	override public function destroy():void
+	override public function destroySelf():void
 	{
 		if (this.tabBar)
 		{
-			this.tabBar.destroy();
+			this.tabBar.destroySelf();
 			this.tabBar = null;
 		}
 		if (this.txt)
@@ -77,7 +77,7 @@ public class TabBarTest extends SampleBase
 			this.txt.removeSelf();
 			this.txt = null;
 		}
-		super.destroy();
+		super.destroySelf();
 	}
 }
 }

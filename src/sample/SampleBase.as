@@ -19,6 +19,8 @@ public class SampleBase extends Sprite
 	 */
 	public function init():void
 	{
+		trace(titleLabel)
+
 		if (!this.titleLabel)
 		{
 			this.titleLabel = new Label();
@@ -30,7 +32,7 @@ public class SampleBase extends Sprite
 		this.addChild(this.titleLabel);
 	}
 	
-	public function destroy():void
+	public function destroySelf():void
 	{
 		if (this.titleLabel)
 		{
