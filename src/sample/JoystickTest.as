@@ -12,7 +12,8 @@ import laya.utils.Handler;
 public class JoystickTest extends SampleBase 
 {
 	private var rect:Sprite;
-	private var joystick:Joystick;
+	private var moveJoystick:Joystick;
+	private var dirJoystick:Joystick;
 	private var speed:Number = 10;
 	public function JoystickTest() 
 	{
@@ -32,12 +33,21 @@ public class JoystickTest extends SampleBase
 	
 	private function loadImgComplete():void
 	{
-		this.joystick = new Joystick();
-		this.joystick.initUI("res/joystick.png", "res/base.png");
-		this.joystick.setStickPos(120, Laya.stage.height - 200);
-		this.joystick.size(Laya.stage.width / 2, Laya.stage.height);
-		this.joystick.mouseMoveHandler = new Handler(this, mouseMoveHandler);
-		this.addChild(this.joystick);
+		this.moveJoystick = new Joystick();
+		this.moveJoystick.initUI("res/joystick.png", "res/base.png");
+		this.moveJoystick.setStickPos(120, Laya.stage.height - 200);
+		this.moveJoystick.size(Laya.stage.width / 2, Laya.stage.height);
+		this.moveJoystick.mouseMoveHandler = new Handler(this, moveJoystickMouseMoveHandler);
+		this.addChild(this.moveJoystick);
+		
+		this.dirJoystick = new Joystick();
+		this.dirJoystick.initUI("res/joystick.png", "res/base.png");
+		this.dirJoystick.setStickPos(Laya.stage.width / 2 - 120, Laya.stage.height - 200);
+		this.dirJoystick.size(Laya.stage.width / 2, Laya.stage.height);
+		this.dirJoystick.x = Laya.stage.width / 2;
+		this.dirJoystick.fixType = Joystick.UNFIXED;
+		this.dirJoystick.mouseMoveHandler = new Handler(this, dirJoystickMouseMoveHandler);
+		this.addChild(this.dirJoystick);
 		
 		this.rect = new Sprite();
 		this.rect.graphics.drawRect(-25, -25, 50, 50, "#FF0000");
@@ -46,10 +56,18 @@ public class JoystickTest extends SampleBase
 		this.addChild(this.rect);
 	}
 	
-	private function mouseMoveHandler():void 
+	private function dirJoystickMouseMoveHandler():void 
 	{
-		var vx:Number = Math.cos(this.joystick.joystickAngleRad) * this.speed * this.joystick.rate;
-		var vy:Number = Math.sin(this.joystick.joystickAngleRad) * this.speed * this.joystick.rate;
+		this.rect.rotation = this.dirJoystick.joystickAngleDeg;
+	}
+	
+	private function moveJoystickMouseMoveHandler():void 
+	{
+		var vx:Number = Math.cos(this.moveJoystick.joystickAngleRad) * this.speed * this.moveJoystick.rate;
+		var vy:Number = Math.sin(this.moveJoystick.joystickAngleRad) * this.speed * this.moveJoystick.rate;
+		
+		trace("vx, vy", vx, vy);
+		
 		this.rect.x += vx;
 		this.rect.y += vy;
 		
@@ -65,10 +83,16 @@ public class JoystickTest extends SampleBase
 	 */
 	override public function destroySelf():void
 	{
-		if (this.joystick)
+		if (this.moveJoystick)
 		{
-			this.joystick.destroySelf();
-			this.joystick = null;
+			this.moveJoystick.destroySelf();
+			this.moveJoystick = null;
+		}
+		
+		if (this.dirJoystick)
+		{
+			this.dirJoystick.destroySelf();
+			this.dirJoystick = null;
 		}
 		
 		if (this.rect)

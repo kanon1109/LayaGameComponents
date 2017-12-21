@@ -20,6 +20,7 @@ public class Main
 	private var sampleTestArr:Array;
 	private var index:int;
 	private var prevIndex:int;
+	private var sampleSpt:Sprite;
 	public function Main() 
 	{
 		Laya.init(800, 500);
@@ -38,8 +39,10 @@ public class Main
 	
 	private function loadImgComplete():void
 	{
-		this.loadSample();
+		this.sampleSpt = new Sprite();
+		Laya.stage.addChild(this.sampleSpt);
 		
+		this.loadSample();
 		var nextBtn:SimpleButton = new SimpleButton("res/btn.png", "下一个");
 		var prevBtn:SimpleButton = new SimpleButton("res/btn.png", "上一个");
 		nextBtn.labelSize = 15;
@@ -58,6 +61,9 @@ public class Main
 		Laya.stage.addChild(nextBtn);
 		Laya.stage.addChild(prevBtn);
 		
+		//Laya.stage.setChildIndex(nextBtn, 2);
+		//Laya.stage.setChildIndex(prevBtn, 3);
+		
 		nextBtn.on(Event.CLICK, this, nextBtnClickHandler);
 		prevBtn.on(Event.CLICK, this, prevBtnClickHandler);
 	}
@@ -66,7 +72,8 @@ public class Main
 	{
 		var sampleTest:SampleBase = this.sampleTestArr[this.index];
 		sampleTest.init();
-		Laya.stage.addChild(sampleTest);
+		this.sampleSpt.addChild(sampleTest);
+		//Laya.stage.setChildIndex(sampleTest, 2);
 	}
 	
 	private function destroySample():void

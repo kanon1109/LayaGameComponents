@@ -33,12 +33,13 @@ public class Joystick extends Sprite
 	private var _dx:Number;
 	//y坐标上向量
 	private var _dy:Number;
+	//是否调试
+	private var _isDrawDebug:Boolean;
 	//固定类型
-	public static var FIX_TYPE:int = 0;
+	public var fixType:int = 0;
 	//固定状态枚举
 	public static const FIXED:int = 0; //固定摇杆
 	public static const UNFIXED:int = 1;//不固定（点击任意位置作为起点，并且摇杆跟随拖动的位置移动）
-	public static const HALF_FIXED:int = 2;//半固定（点击任意位置作为起点）
 	public function Joystick() 
 	{
 		this.initData();
@@ -50,7 +51,11 @@ public class Joystick extends Sprite
 	 */
 	private function initData():void
 	{
-		Joystick.FIX_TYPE = Joystick.FIXED;
+		this._rate = 1;
+		this.maxRadius = 100;
+		this._joystickAngleRad = 0;
+		this._isDrawDebug = false;
+		this.fixType = Joystick.FIXED;
 		this.prevPt = new Point(this.width / 2, this.height / 2);
 		this.curPt = new Point(this.prevPt.x, this.prevPt.y);
 	}
@@ -65,11 +70,16 @@ public class Joystick extends Sprite
 	
 	private function onMouseDownHandler():void 
 	{
-		trace("mouse down");
 		this.isMouseDown = true;
 		Laya.stage.on(Event.MOUSE_UP, this, onMouseUpHandler);
 		Laya.stage.on(Event.MOUSE_OUT, this, onMouseUpHandler);
 		this.frameLoop(1, this, loopHandler)
+		
+		if (this.fixType == Joystick.UNFIXED)
+			this.setStickPos(mouseX, mouseY);
+			
+		if (this.mouseMoveHandler)
+			this.mouseMoveHandler.run();
 	}
 	
 	private function loopHandler():void 
@@ -83,16 +93,33 @@ public class Joystick extends Sprite
 		this._joystickAngleRad = Math.atan2(this._dy, this._dx);
 		
 		var dis:Number = this.curPt.distance(this.prevPt.x, this.prevPt.y);
-		if (dis > this.maxRadius) dis = this.maxRadius; 
+		if (this.fixType == Joystick.FIXED && dis > this.maxRadius) dis = this.maxRadius; 
 		
-		var x:Number = Math.cos(this._joystickAngleRad) * dis;
-		var y:Number = Math.sin(this._joystickAngleRad) * dis;
+		var x:Number = Math.cos(this._joystickAngleRad) * dis + this.prevPt.x;
+		var y:Number = Math.sin(this._joystickAngleRad) * dis + this.prevPt.y;
 		
 		if (this.stickImg)
 		{
-			this.stickImg.x = this.prevPt.x + x;
-			this.stickImg.y = this.prevPt.y + y;
+			this.stickImg.x = x;
+			this.stickImg.y = y;
 		}
+		
+		if (this.fixType == Joystick.UNFIXED)
+		{
+			if (dis >= this.maxRadius)
+			{
+				var sx:Number = Math.cos(this._joystickAngleRad) * this.maxRadius;
+				var sy:Number = Math.sin(this._joystickAngleRad) * this.maxRadius;
+				this.prevPt.x = x - sx;
+				this.prevPt.y = y - sy;
+				if (this.baseImg)
+				{
+					this.baseImg.x = this.prevPt.x;
+					this.baseImg.y = this.prevPt.y;
+				}
+			}
+		}
+		
 		this._rate = dis / this.maxRadius;
 		
 		if (this.mouseMoveHandler)
@@ -105,7 +132,6 @@ public class Joystick extends Sprite
 		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
 		Laya.stage.off(Event.MOUSE_OUT, this, onMouseUpHandler);
 		this.clearTimer(this, loopHandler);
-		
 		
 		this.stickImg.x = this.prevPt.x;
 		this.stickImg.y = this.prevPt.y;
@@ -182,7 +208,7 @@ public class Joystick extends Sprite
 	/**
 	 * 摇杆的弧度
 	 */
-	public function get joystickAngleRad():Number {return _joystickAngleRad; };
+	public function get joystickAngleRad():Number {return _joystickAngleRad; }
 	
 	/**
 	 * 摇杆的角度
@@ -201,6 +227,17 @@ public class Joystick extends Sprite
 	 * y坐标上向量
 	 */
 	public function get dy():Number{return _dy; }
+	
+	/**
+	 * 是否绘制调试
+	 */
+	public function get isDrawDebug():Boolean {return _isDrawDebug; }
+	public function set isDrawDebug(value:Boolean):void 
+	{
+		_isDrawDebug = value;
+		this.graphics.clear(true);
+		if (value) this.graphics.drawRect(0, 0, this.width, this.height, "#666666");
+	}
 	
 	/**
 	 * 销毁
