@@ -9,6 +9,7 @@ import laya.ui.Button;
 import laya.utils.Handler;
 import sample.JoystickTest;
 import sample.ListViewTest;
+import sample.NumericStepperTest;
 import sample.SampleBase;
 import sample.TabBarTest;
 /**
@@ -28,7 +29,8 @@ public class Main
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#0F1312";
 		
-		this.sampleTestArr = [new TabBarTest(), new ListViewTest(), new JoystickTest()];
+		this.sampleTestArr = [new TabBarTest(), new ListViewTest(), 
+							  new JoystickTest(), new NumericStepperTest()];
 		this.index = 0;
 		this.prevIndex = 0;
 		
