@@ -34,7 +34,7 @@ public class NumericStepperTest extends SampleBase
 		this.ns.x = 100;
 		this.ns.y = 200;
 		this.ns.maxValue = 100;
-		this.ns.minValue = 1;
+		this.ns.minValue = -1;
 		this.ns.value = this.ns.minValue;
 		this.ns.step = 2;
 		this.addChild(this.ns);

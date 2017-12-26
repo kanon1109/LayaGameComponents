@@ -51,12 +51,12 @@ public class NumericStepper extends Sprite
 		this.addChild(this.inputImg);
 				
 		this.input = new TextInput();
-		this.input.restrict = "0-9";
+		this.input.restrict = "0-9-";
 		this.input.fontSize = fontSize;
 		this.input.align = "center";
 		this.input.color = fontColor;
 		this.input.text = this.value.toString();
-		this.input.on(Event.FOCUS_CHANGE, this, focusInputHandler);
+		this.input.on(Event.BLUR, this, blurInputHandler);
 		this.addChild(this.input);
 		this.input.size(this.inputImg.width, this.inputImg.height);
 		
@@ -64,8 +64,9 @@ public class NumericStepper extends Sprite
 		this.layout();
 	}
 	
-	private function focusInputHandler():void 
+	private function blurInputHandler():void 
 	{
+		this.value = parseInt(this.input.text);
 		this.updateValue();
 	}
 	
