@@ -10,6 +10,7 @@ import laya.utils.Handler;
 import sample.JoystickTest;
 import sample.ListViewTest;
 import sample.NumericStepperTest;
+import sample.PageIndicatorTest;
 import sample.SampleBase;
 import sample.TabBarTest;
 /**
@@ -30,7 +31,8 @@ public class Main
 		Laya.stage.bgColor = "#0F1312";
 		
 		this.sampleTestArr = [new TabBarTest(), new ListViewTest(), 
-							  new JoystickTest(), new NumericStepperTest()];
+							  new JoystickTest(), new NumericStepperTest(), 
+							  new PageIndicatorTest()];
 		this.index = 0;
 		this.prevIndex = 0;
 		

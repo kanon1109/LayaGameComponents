@@ -16,31 +16,32 @@ public class NumericStepper extends Sprite
 	public var maxValue:int = 100;
 	//最小值
 	public var minValue:int = 0;
+	//当前的值
+	public var value:int;
+	public var reduceBtn:SimpleButton;
+	public var addBtn:SimpleButton;
 	//间隔
 	private var _step:int = 1;
-	public var value:int;
-	private var reduceBtn:SimpleButton;
-	private var addBtn:SimpleButton;
 	private var inputImg:Image;
 	private var gap:int;
 	private var isReduceMouseDown:Boolean;
 	private var isAddMouseDown:Boolean;
-	public function NumericStepper(reduceImgPath:String, 
-									addImgPath:String, 
+	public function NumericStepper(reduceBtnSkin:String, 
+									addBtnSkin:String, 
 									inputImgPath:String, 
 									fontSize:int,
 									fontColor:String="#FFFFFF",
 									gap:int = 2) 
 	{
 		this.value = this.minValue;
-		this.reduceBtn = new SimpleButton(reduceImgPath);
+		this.reduceBtn = new SimpleButton(reduceBtnSkin);
 		this.reduceBtn.on(Event.CLICK, this, reduceBtnClickHandler);
 		this.reduceBtn.on(Event.MOUSE_DOWN, this, reduceBtnMouseDownHandler);
 		this.reduceBtn.on(Event.MOUSE_UP, this, reduceBtnMouseUpHandler);
 		this.reduceBtn.on(Event.MOUSE_OUT, this, reduceBtnMouseUpHandler);
 		this.addChild(this.reduceBtn);
 		
-		this.addBtn = new SimpleButton(addImgPath);
+		this.addBtn = new SimpleButton(addBtnSkin);
 		this.addBtn.on(Event.CLICK, this, addBtnClickHandler);
 		this.addBtn.on(Event.MOUSE_DOWN, this, addBtnMouseDownHandler);
 		this.addBtn.on(Event.MOUSE_UP, this, addBtnMouseUpHandler);
