@@ -3,6 +3,7 @@ package components
 import laya.display.Sprite;
 import laya.events.Event;
 import laya.ui.Image;
+import laya.utils.Handler;
 
 /**
  * ...页数组件
@@ -19,6 +20,8 @@ public class PageIndicator extends Sprite
 	private var selectedArr:Array;
 	//页数
 	private var pageCount:int;
+	//页数更改回调
+	public var pageChangeHandler:Handler;
 	public function PageIndicator(normalSkin:String, selectedSkin:String, pageCount:int, gap:Number = 30) 
 	{
 		this.normalArr = [];
@@ -79,6 +82,8 @@ public class PageIndicator extends Sprite
 		var index:int = normalImg.tag;
 		if (index > this.selectedIndex) this.selectedIndex++;
 		else if (index < this.selectedIndex) this.selectedIndex--;
+		if (this.pageChangeHandler)
+			this.pageChangeHandler.run();
 	}
 	
 	/**
@@ -108,6 +113,7 @@ public class PageIndicator extends Sprite
 	 */
 	public function destroySelf():void
 	{
+		this.pageChangeHandler = null;
 		this.removeAllImg();
 		this.destroy();
 		this.removeSelf();

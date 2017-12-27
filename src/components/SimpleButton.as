@@ -234,12 +234,14 @@ public class SimpleButton extends Sprite
 	{
 		if (this.normalImg)
 		{
+			this.normalImg.destroy();
 			this.normalImg.removeSelf();
 			this.normalImg = null;
 		}
 		
 		if (this.text)
 		{
+			this.text.destroy();
 			this.text.removeSelf();
 			this.text = null;
 		}

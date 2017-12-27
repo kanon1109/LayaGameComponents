@@ -35,6 +35,7 @@ public class NumericStepper extends Sprite
 	{
 		this.value = this.minValue;
 		this.reduceBtn = new SimpleButton(reduceBtnSkin);
+		this.reduceBtn.label = "-";
 		this.reduceBtn.on(Event.CLICK, this, reduceBtnClickHandler);
 		this.reduceBtn.on(Event.MOUSE_DOWN, this, reduceBtnMouseDownHandler);
 		this.reduceBtn.on(Event.MOUSE_UP, this, reduceBtnMouseUpHandler);
@@ -42,6 +43,7 @@ public class NumericStepper extends Sprite
 		this.addChild(this.reduceBtn);
 		
 		this.addBtn = new SimpleButton(addBtnSkin);
+		this.addBtn.label = "+";
 		this.addBtn.on(Event.CLICK, this, addBtnClickHandler);
 		this.addBtn.on(Event.MOUSE_DOWN, this, addBtnMouseDownHandler);
 		this.addBtn.on(Event.MOUSE_UP, this, addBtnMouseUpHandler);

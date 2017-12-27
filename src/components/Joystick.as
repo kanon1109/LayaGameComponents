@@ -249,12 +249,14 @@ public class Joystick extends Sprite
 		
 		if (this.baseImg)
 		{
+			this.baseImg.destroy();
 			this.baseImg.removeSelf();
 			this.baseImg = null;
 		}
 		
 		if (this.stickImg)
 		{
+			this.stickImg.destroy();
 			this.stickImg.removeSelf();
 			this.stickImg = null;
 		}

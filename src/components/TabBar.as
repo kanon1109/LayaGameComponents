@@ -13,6 +13,7 @@ import laya.utils.Handler;
 public class TabBar extends Sprite 
 {
 	private var normalImgAry:Array;
+	private var pressedImgAry:Array;
 	private var selectedImgAry:Array;
 	private var btnAry:Array;
 	private var dsableImgAry:Array;
@@ -30,22 +31,25 @@ public class TabBar extends Sprite
 	 * 初始化
 	 * @param	num					数量
 	 * @param	gap					间隔
-	 * @param	normal				普通状态的资源名字前缀
-	 * @param	selected			按下状态的资源名字前缀
-	 * @param	dsable				不启用时的状态
+	 * @param	normalSkin			普通状态的资源
+	 * @param	selectedSkin		选中状态的资源
+	 * @param	pressedSkin			按下状态的资源
+	 * @param	dsableSkin			不启用时的状态
 	 * @param	clickCallBack		点击回调
 	 * @param	dsableClickCallBack	点击屏蔽回调
 	 */
 	public function init(num:int, 
 						gap:Number, 
-						normal:String, 
-						selected:String, 
-						dsable:String = "", 
+						normalSkin:String, 
+						selectedSkin:String, 
+						pressedSkin:String = "",
+						dsableSkin:String = "", 
 						clickCallBack:Handler = null, 
 						dsableClickCallBack:Handler = null):void
 	{
 		this.btnAry = [];
 		this.normalImgAry = [];
+		this.pressedImgAry = [];
 		this.selectedImgAry = [];
 		this.dsableImgAry = [];
 		this.dsableAry = [];
@@ -54,19 +58,27 @@ public class TabBar extends Sprite
 		this.tabDsableClickHandler = dsableClickCallBack;
 		for (var i:int = 0; i < num; i++) 
 		{
-			var normalImg:Image = new Image(normal);
+			var normalImg:Image = new Image(normalSkin);
 			normalImg.x = i * (normalImg.width + gap);
 			this.addChild(normalImg);
 			this.normalImgAry.push(normalImg);
 			
-			var selectedImg:Image = new Image(selected);
+			var selectedImg:Image = new Image(selectedSkin);
 			selectedImg.x = normalImg.x;
 			this.addChild(selectedImg);
 			this.selectedImgAry.push(selectedImg);
 			
-			if (dsable)
+			if (pressedSkin)
 			{
-				var dsableImg:Image = new Image(dsable);
+				var pressedImg:Image = new Image(pressedSkin);
+				pressedImg.x = normalImg.x;
+				this.addChild(pressedImg);
+				this.pressedImgAry.push(pressedImg);
+			}
+			
+			if (dsableSkin)
+			{
+				var dsableImg:Image = new Image(dsableSkin);
 				dsableImg.x = normalImg.x;
 				this.addChild(dsableImg);
 				this.dsableImgAry.push(dsableImg);
@@ -78,11 +90,39 @@ public class TabBar extends Sprite
 			btn.x = normalImg.x;
 			btn.y = normalImg.y;
 			btn.on(Event.CLICK, this, btnClickHandler);
+			btn.on(Event.MOUSE_DOWN, this, btnMouseDownHandler);
+			btn.on(Event.MOUSE_OUT, this, btnMouseOutHandler);
 			this.addChild(btn);
 			this.btnAry.push(btn);
 			this.dsableAry.push(false);
 		}
 		this.resetAllBtn();
+	}
+	
+	private function btnMouseOutHandler(event:Event):void 
+	{
+		if (this.pressedImgAry.length > 0)
+		{
+			var btn:Button = event.currentTarget as Button;
+			var index:int = btn.tag;
+			var normalImg:Image = this.normalImgAry[index];
+			var pressedImg:Image = this.pressedImgAry[index];
+			normalImg.visible = true;
+			pressedImg.visible = false;
+		}
+	}
+	
+	private function btnMouseDownHandler(event:Event):void 
+	{
+		if (this.pressedImgAry.length > 0)
+		{
+			var btn:Button = event.currentTarget as Button;
+			var index:int = btn.tag;
+			var normalImg:Image = this.normalImgAry[index];
+			var pressedImg:Image = this.pressedImgAry[index];
+			normalImg.visible = false;
+			pressedImg.visible = true;
+		}
 	}
 	
 	private function btnClickHandler(event:Event):void 
@@ -108,6 +148,13 @@ public class TabBar extends Sprite
 		{
 			if (!this.dsableAry[i])
 				this.selectedImgAry[i].visible = false;
+		}
+		
+		length = this.pressedImgAry.length;
+		for (i = 0; i < length; i++) 
+		{
+			if (!this.dsableAry[i])
+				this.pressedImgAry[i].visible = false;
 		}
 		
 		length = this.dsableImgAry.length;
@@ -189,6 +236,7 @@ public class TabBar extends Sprite
 		for (var i:int = 0; i < length; i++) 
 		{
 			img = this.normalImgAry[i];
+			img.destroy();
 			img.removeSelf();
 		}
 		
@@ -196,6 +244,15 @@ public class TabBar extends Sprite
 		for (i = 0; i < length; i++) 
 		{
 			img = this.selectedImgAry[i];
+			img.destroy();
+			img.removeSelf();
+		}
+		
+		length = this.pressedImgAry.length;
+		for (i = 0; i < length; i++) 
+		{
+			img = this.pressedImgAry[i];
+			img.destroy();
 			img.removeSelf();
 		}
 		
@@ -203,6 +260,7 @@ public class TabBar extends Sprite
 		for (i = 0; i < length; i++) 
 		{
 			img = this.dsableImgAry[i];
+			img.destroy();
 			img.removeSelf();
 		}
 		
@@ -210,6 +268,10 @@ public class TabBar extends Sprite
 		for (i = 0; i < length; i++) 
 		{
 			var btn:Button = this.btnAry[i];
+			btn.off(Event.CLICK, this, btnClickHandler);
+			btn.off(Event.MOUSE_DOWN, this, btnMouseDownHandler);
+			btn.off(Event.MOUSE_OUT, this, btnMouseOutHandler);
+			img.destroy();
 			btn.removeSelf();
 		}
 		

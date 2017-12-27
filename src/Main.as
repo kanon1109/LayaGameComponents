@@ -5,7 +5,6 @@ import laya.display.Sprite;
 import laya.display.Stage;
 import laya.events.Event;
 import laya.net.Loader;
-import laya.ui.Button;
 import laya.utils.Handler;
 import sample.JoystickTest;
 import sample.ListViewTest;
@@ -13,6 +12,7 @@ import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
 import sample.SampleBase;
 import sample.TabBarTest;
+import sample.ToggleSwitchTest;
 /**
  * ...入口
  * @author ...Kanon
@@ -32,7 +32,7 @@ public class Main
 		
 		this.sampleTestArr = [new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
-							  new PageIndicatorTest()];
+							  new PageIndicatorTest(), new ToggleSwitchTest()];
 		this.index = 0;
 		this.prevIndex = 0;
 		

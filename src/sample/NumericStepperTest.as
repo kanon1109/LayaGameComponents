@@ -35,6 +35,10 @@ public class NumericStepperTest extends SampleBase
 		this.ns.y = 200;
 		this.ns.maxValue = 100;
 		this.ns.minValue = -1;
+		this.ns.reduceBtn.labelSize = 25;
+		this.ns.addBtn.labelSize = 25;
+		this.ns.reduceBtn.labelColors = "#FFFFFF";
+		this.ns.addBtn.labelColors = "#FFFFFF";
 		this.ns.value = this.ns.minValue;
 		this.ns.step = 2;
 		this.addChild(this.ns);
