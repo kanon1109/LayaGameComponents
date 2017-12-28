@@ -4,7 +4,9 @@ import laya.display.Sprite;
 import laya.events.Event;
 import laya.maths.Point;
 import laya.ui.Image;
+import laya.utils.Ease;
 import laya.utils.Handler;
+import laya.utils.Tween;
 /**
  * ...摇杆
  * @author ...Kanon
@@ -35,6 +37,8 @@ public class Joystick extends Sprite
 	private var _dy:Number;
 	//是否调试
 	private var _isDrawDebug:Boolean;
+	//动画
+	private var tween:Tween;
 	//固定类型
 	public var fixType:int = 0;
 	//固定状态枚举
@@ -68,24 +72,25 @@ public class Joystick extends Sprite
 		this.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
 	}
 	
-	private function onMouseDownHandler():void 
+	private function onMouseDownHandler(event:Event):void 
 	{
+		this.removeTween();
 		this.isMouseDown = true;
-		Laya.stage.on(Event.MOUSE_UP, this, onMouseUpHandler);
-		Laya.stage.on(Event.MOUSE_OUT, this, onMouseUpHandler);
-		this.frameLoop(1, this, loopHandler)
-		
+		this.on(Event.MOUSE_UP, this, onMouseUpHandler);
+		this.on(Event.MOUSE_OUT, this, onMouseUpHandler);
+		this.on(Event.MOUSE_MOVE, this, onMouseMoveHandler);
+
 		if (this.fixType == Joystick.UNFIXED)
-			this.setStickPos(mouseX, mouseY);
+			this.setStickPos(event.stageX - this.x, event.stageY - this.y);
 			
 		if (this.mouseMoveHandler)
 			this.mouseMoveHandler.run();
 	}
 	
-	private function loopHandler():void 
+	private function onMouseMoveHandler(event:Event):void 
 	{
-		this.curPt.x = mouseX;
-		this.curPt.y = mouseY;
+		this.curPt.x = event.stageX - this.x;
+		this.curPt.y = event.stageY - this.y;
 		
 		this._dx = this.curPt.x - this.prevPt.x;
 		this._dy = this.curPt.y - this.prevPt.y;
@@ -129,12 +134,25 @@ public class Joystick extends Sprite
 	private function onMouseUpHandler():void 
 	{
 		this.isMouseDown = false;
-		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
-		Laya.stage.off(Event.MOUSE_OUT, this, onMouseUpHandler);
-		this.clearTimer(this, loopHandler);
-		
-		this.stickImg.x = this.prevPt.x;
-		this.stickImg.y = this.prevPt.y;
+		this.off(Event.MOUSE_UP, this, onMouseUpHandler);
+		this.off(Event.MOUSE_OUT, this, onMouseUpHandler);
+		this.off(Event.MOUSE_MOVE, this, onMouseMoveHandler);
+		this.removeTween();
+		this.tween = Tween.to(this.stickImg, {x:this.prevPt.x, y:this.prevPt.y}, 200, Ease.circOut);
+		//this.stickImg.x = this.prevPt.x;
+		//this.stickImg.y = this.prevPt.y;
+	}
+
+	/**
+	 * 删除动画
+	 */
+	private function removeTween():void
+	{
+		if (this.tween)
+		{
+			this.tween.clear();
+			this.tween = null;
+		}
 	}
 	
 	/**
@@ -244,8 +262,10 @@ public class Joystick extends Sprite
 	 */
 	public function destroySelf():void
 	{
-		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
-		this.clearTimer(this, loopHandler);
+		this.off(Event.MOUSE_DOWN, this, onMouseDownHandler);
+		this.off(Event.MOUSE_UP, this, onMouseUpHandler);
+		this.off(Event.MOUSE_OUT, this, onMouseUpHandler);
+		this.off(Event.MOUSE_MOVE, this, onMouseMoveHandler);
 		
 		if (this.baseImg)
 		{
@@ -260,6 +280,8 @@ public class Joystick extends Sprite
 			this.stickImg.removeSelf();
 			this.stickImg = null;
 		}
+		
+		this.removeTween();
 		
 		this.mouseMoveHandler = null;
 		

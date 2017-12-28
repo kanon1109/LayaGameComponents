@@ -239,11 +239,11 @@ public class SimpleButton extends Sprite
 			this.normalImg = null;
 		}
 		
-		if (this.text)
+		if (this.titleTxt)
 		{
-			this.text.destroy();
-			this.text.removeSelf();
-			this.text = null;
+			this.titleTxt.destroy();
+			this.titleTxt.removeSelf();
+			this.titleTxt = null;
 		}
 		
 		this.off(Event.MOUSE_DOWN, this, onMouseDownHandler);
