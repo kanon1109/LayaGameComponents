@@ -17,12 +17,36 @@ public class SimpleButton extends Sprite
 	//标签
 	public var tag:*;
 	private var normalImg:Image;
+	private var selectedImg:Image;
+	private var disableImg:Image;
 	private var titleTxt:Text;
-	public function SimpleButton(normal:String, label:String = "")
+	private var _disable:Boolean;
+	private var textColor:String;
+	public function SimpleButton(normalSkin:String, 
+								 selectedSkin:String = null, 
+								 disableSkin:String = null, 
+								 label:String = "")
 	{
-		this.normalImg = new Image(normal);
+		this.normalImg = new Image(normalSkin);
 		this.normalImg.mouseEnabled = false;
 		this.addChild(this.normalImg);
+		
+		if (selectedSkin)
+		{
+			this.selectedImg = new Image(selectedSkin);
+			this.selectedImg.mouseEnabled = false;
+			this.selectedImg.visible = false;
+			this.addChild(this.selectedImg);
+		}
+
+		if (disableSkin)
+		{
+			this.disableImg = new Image(disableSkin);
+			this.disableImg.mouseEnabled = false;
+			this.disableImg.visible = false;
+			this.addChild(this.disableImg);
+		}
+		
 		this.size(this.normalImg.width, this.normalImg.height);
 		this.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
 		this.on(Event.MOUSE_UP, this, onMouseUpHandler);
@@ -42,6 +66,7 @@ public class SimpleButton extends Sprite
 			this.titleTxt.valign = "middle";
 			this.titleTxt.width = this.width;
 			this.titleTxt.height = this.height;
+			this.textColor = this.titleTxt.color;
 		}
 	}
 
@@ -111,6 +136,7 @@ public class SimpleButton extends Sprite
 	{
 		this.createText();
 		this.titleTxt.color = value;
+		this.textColor = this.titleTxt.color;
 	}
 	
 	/**
@@ -201,29 +227,68 @@ public class SimpleButton extends Sprite
 		return this.titleTxt;
 	}
 	
-	private function onMouseUpHandler():void 
+	/**
+	 * 是否启用
+	 */
+	public function get disable():Boolean{ return _disable; }
+	public function set disable(value:Boolean):void 
 	{
-		this.normalImg.scale(1, 1, false);
-		this.normalImg.x = 0;
-		this.normalImg.y = 0;
+		_disable = value;
+		this.mouseEnabled = !value;
+		if (this.disableImg)
+		{
+			this.normalImg.visible = !value;
+			this.disableImg.visible = value;
+		}
 		if (this.titleTxt)
 		{
-			this.titleTxt.scale(1, 1, false);
-			this.titleTxt.x = 0;
-			this.titleTxt.y = 0;
+			if (value)
+				this.titleTxt.color = "#5D5D5D";
+			else
+				this.titleTxt.color = this.textColor;
+		}
+	}
+	
+	private function onMouseUpHandler():void 
+	{
+		if (!this.selectedImg)
+		{
+			this.normalImg.scale(1, 1, false);
+			this.normalImg.x = 0;
+			this.normalImg.y = 0;
+			if (this.titleTxt)
+			{
+				this.titleTxt.scale(1, 1, false);
+				this.titleTxt.x = 0;
+				this.titleTxt.y = 0;
+			}
+		}
+		else
+		{
+			this.selectedImg.visible = false;
+			this.normalImg.visible = true;
 		}
 	}
 	
 	private function onMouseDownHandler():void 
 	{
-		this.normalImg.scale(.95, .95, false);
-		this.normalImg.x = (1 - this.normalImg.scaleX) * this.normalImg.width / 2;
-		this.normalImg.y = (1 - this.normalImg.scaleY) * this.normalImg.height / 2;
-		if (this.titleTxt)
+		trace(this.selectedImg);
+		if (!this.selectedImg)
 		{
-			this.titleTxt.scale(.95, .95, false);
-			this.titleTxt.x = (1 - this.titleTxt.scaleX) * this.titleTxt.width / 2;
-			this.titleTxt.y = (1 - this.titleTxt.scaleY) * this.titleTxt.height / 2;
+			this.normalImg.scale(.95, .95, false);
+			this.normalImg.x = (1 - this.normalImg.scaleX) * this.normalImg.width / 2;
+			this.normalImg.y = (1 - this.normalImg.scaleY) * this.normalImg.height / 2;
+			if (this.titleTxt)
+			{
+				this.titleTxt.scale(.95, .95, false);
+				this.titleTxt.x = (1 - this.titleTxt.scaleX) * this.titleTxt.width / 2;
+				this.titleTxt.y = (1 - this.titleTxt.scaleY) * this.titleTxt.height / 2;
+			}
+		}
+		else
+		{
+			this.selectedImg.visible = true;
+			this.normalImg.visible = false;
 		}
 	}
 	
@@ -237,6 +302,20 @@ public class SimpleButton extends Sprite
 			this.normalImg.destroy();
 			this.normalImg.removeSelf();
 			this.normalImg = null;
+		}
+		
+		if (this.selectedImg)
+		{
+			this.selectedImg.destroy();
+			this.selectedImg.removeSelf();
+			this.selectedImg = null;
+		}
+		
+		if (this.disableImg)
+		{
+			this.disableImg.destroy();
+			this.disableImg.removeSelf();
+			this.disableImg = null;
 		}
 		
 		if (this.titleTxt)

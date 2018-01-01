@@ -11,6 +11,7 @@ import sample.ListViewTest;
 import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
 import sample.SampleBase;
+import sample.SimpleButtonTest;
 import sample.SliderTest;
 import sample.TabBarTest;
 import sample.ToggleSwitchTest;
@@ -31,7 +32,8 @@ public class Main
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
 		
-		this.sampleTestArr = [new TabBarTest(), new ListViewTest(), 
+		this.sampleTestArr = [new SimpleButtonTest(),
+							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
 							  new SliderTest()];
@@ -49,8 +51,8 @@ public class Main
 		Laya.stage.addChild(this.sampleSpt);
 		
 		this.loadSample();
-		var nextBtn:SimpleButton = new SimpleButton("res/btn.png", "下一个");
-		var prevBtn:SimpleButton = new SimpleButton("res/btn.png", "上一个");
+		var nextBtn:SimpleButton = new SimpleButton("res/btn.png", null, null, "下一个");
+		var prevBtn:SimpleButton = new SimpleButton("res/btn.png", null, null, "上一个");
 		nextBtn.labelSize = 15;
 		prevBtn.labelSize = nextBtn.labelSize;
 		//prevBtn.labelColors = "#FF0000";
