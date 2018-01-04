@@ -22,6 +22,7 @@ public class PageView extends ScrollView
 	private var cellList:Array;
 	//总的可显示页数
 	private static const MAX_SHOW_PAGE_COUNT:int = 3;
+	//当前翻页的页面索引
 	public var curPageIndex:int = 0;
 	public var updateTableCell:Handler;
 	public var updatePageCell:Handler;
@@ -150,6 +151,36 @@ public class PageView extends ScrollView
 					if (this.updateTableCell && c.visible) 
 						this.updateTableCell.runWith(c);
 				}
+			}
+		}
+	}
+	
+	/**
+	 * 更新页面
+	 */
+	private function updatePage():void
+	{
+		if (!this.isTouched) return;
+		if (this._isHorizontal)
+		{
+			if (this.content.x + this.viewWidth * this.curPageIndex <= -this.viewWidth && this.curPageIndex < this._totalPageCount - 1)
+			{
+				trace("上一页")
+			}
+			else if (this.content.x + this.viewWidth * this.curPageIndex >= this.viewWidth && this.curPageIndex > 0)
+			{
+				trace("下一页")
+			}
+		}
+		else
+		{
+			if (this.content.y + this.viewHeight * this.curPageIndex <= -this.viewHeight && this.curPageIndex < this._totalPageCount - 1)
+			{
+				trace("上一页")
+			}
+			else if (this.content.y + this.viewHeight * this.curPageIndex >= this.viewHeight && this.curPageIndex > 0)
+			{
+				trace("下一页")
 			}
 		}
 	}
@@ -295,6 +326,7 @@ public class PageView extends ScrollView
 		super.loopHandler();
 		this.scrollPage();
 		this.updateCell();
+		this.updatePage();
 	}
 	
 	override protected function debugDrawContentBound():void 
