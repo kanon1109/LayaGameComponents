@@ -11,6 +11,7 @@ import sample.ListViewTest;
 import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
 import sample.SampleBase;
+import sample.SliderTest;
 import sample.TabBarTest;
 import sample.ToggleSwitchTest;
 /**
@@ -32,7 +33,8 @@ public class Main
 		
 		this.sampleTestArr = [new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
-							  new PageIndicatorTest(), new ToggleSwitchTest()];
+							  new PageIndicatorTest(), new ToggleSwitchTest(), 
+							  new SliderTest()];
 		this.index = 0;
 		this.prevIndex = 0;
 		
