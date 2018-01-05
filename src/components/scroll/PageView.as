@@ -161,26 +161,79 @@ public class PageView extends ScrollView
 	private function updatePage():void
 	{
 		if (!this.isTouched) return;
+		var cell:Cell;
 		if (this._isHorizontal)
 		{
 			if (this.content.x + this.viewWidth * this.curPageIndex <= -this.viewWidth && this.curPageIndex < this._totalPageCount - 1)
 			{
-				trace("上一页")
+				this.curPageIndex++;
+				if (this.updatePageCell) this.updatePageCell.run();
+				this.removeTween();
+				this.speed = 0;
+				if (this.curPageIndex >= this.showPageCount - 1 && 
+					this.curPageIndex < this._totalPageCount - 1 &&
+					this.showPageCount < this._totalPageCount)
+				{
+					//交换cell
+					cell = this.cellList.shift();
+					this.cellList.push(cell);
+					cell.index = this.curPageIndex + 1;
+					cell.x = (this.curPageIndex + 1) * this.viewWidth;
+				}
 			}
 			else if (this.content.x + this.viewWidth * this.curPageIndex >= this.viewWidth && this.curPageIndex > 0)
 			{
-				trace("下一页")
+				this.curPageIndex--;
+				if (this.updatePageCell) this.updatePageCell.run();
+				this.removeTween();
+				this.speed = 0;
+				if (this.curPageIndex > 0 && 
+					this.curPageIndex <= this._totalPageCount - this.showPageCount && 
+					this.showPageCount < this._totalPageCount)
+				{
+					//交换cell
+					cell = this.cellList.pop();
+					this.cellList.unshift(cell);
+					cell.index = this.curPageIndex - 1;
+					cell.x = (this.curPageIndex - 1) * this.viewWidth;
+				}
 			}
 		}
 		else
 		{
 			if (this.content.y + this.viewHeight * this.curPageIndex <= -this.viewHeight && this.curPageIndex < this._totalPageCount - 1)
 			{
-				trace("上一页")
+				this.curPageIndex++;
+				if (this.updatePageCell) this.updatePageCell.run();
+				this.removeTween();
+				this.speed = 0;
+				if (this.curPageIndex >= this.showPageCount - 1 && 
+					this.curPageIndex < this._totalPageCount - 1 &&
+					this.showPageCount < this._totalPageCount)
+				{
+					//交换cell
+					cell = this.cellList.shift();
+					this.cellList.push(cell);
+					cell.index = this.curPageIndex + 1;
+					cell.y = (this.curPageIndex + 1) * this.viewHeight;
+				}
 			}
 			else if (this.content.y + this.viewHeight * this.curPageIndex >= this.viewHeight && this.curPageIndex > 0)
 			{
-				trace("下一页")
+				this.curPageIndex--;
+				if (this.updatePageCell) this.updatePageCell.run();
+				this.removeTween();
+				this.speed = 0;
+				if (this.curPageIndex > 0 && 
+					this.curPageIndex <= this._totalPageCount - this.showPageCount && 
+					this.showPageCount < this._totalPageCount)
+				{
+					//交换cell
+					cell = this.cellList.pop();
+					this.cellList.unshift(cell);
+					cell.index = this.curPageIndex - 1;
+					cell.y = (this.curPageIndex - 1) * this.viewHeight;
+				}
 			}
 		}
 	}
