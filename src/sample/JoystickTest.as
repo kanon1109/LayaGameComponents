@@ -66,8 +66,6 @@ public class JoystickTest extends SampleBase
 		var vx:Number = Math.cos(this.moveJoystick.joystickAngleRad) * this.speed * this.moveJoystick.rate;
 		var vy:Number = Math.sin(this.moveJoystick.joystickAngleRad) * this.speed * this.moveJoystick.rate;
 		
-		trace("vx, vy", vx, vy);
-		
 		this.rect.x += vx;
 		this.rect.y += vy;
 		

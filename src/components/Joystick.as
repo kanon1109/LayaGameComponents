@@ -81,7 +81,10 @@ public class Joystick extends Sprite
 		this.on(Event.MOUSE_MOVE, this, onMouseMoveHandler);
 
 		if (this.fixType == Joystick.UNFIXED)
-			this.setStickPos(event.stageX - this.x, event.stageY - this.y);
+		{
+			var pt:Point = this.globalToLocal(new Point(event.stageX, event.stageY), true);
+			this.setStickPos(pt.x, pt.y);
+		}
 			
 		if (this.mouseMoveHandler)
 			this.mouseMoveHandler.run();
@@ -89,8 +92,7 @@ public class Joystick extends Sprite
 	
 	private function onMouseMoveHandler(event:Event):void 
 	{
-		this.curPt.x = event.stageX - this.x;
-		this.curPt.y = event.stageY - this.y;
+		this.curPt = this.globalToLocal(new Point(event.stageX, event.stageY), true)
 		
 		this._dx = this.curPt.x - this.prevPt.x;
 		this._dy = this.curPt.y - this.prevPt.y;

@@ -94,7 +94,8 @@ public class ToggleSwitch extends Sprite
 		{
 			this.isMouseDown = false;
 			this.clearTimer(this, loopHandler);
-			if (this.prevMousePos.distance(event.stageX - this.x, event.stageY - this.y) < 1)
+			var pt:Point = this.globalToLocal(new Point(event.stageX, event.stageY), true);
+			if (this.prevMousePos.distance(pt.x, pt.y) < 1)
 			{
 				this.isSelected = !this.isSelected;
 			}
@@ -111,8 +112,7 @@ public class ToggleSwitch extends Sprite
 	private function thumbMouseDownHandler(event:Event):void 
 	{
 		this.isMouseDown = true;
-		this.prevMousePos.x = event.stageX - this.x;
-		this.prevMousePos.y = event.stageY - this.y;
+		this.prevMousePos = this.globalToLocal(new Point(event.stageX, event.stageY), true);	
 		this.prevThumbX = this.spt.x;
 		this.frameLoop(1, this, loopHandler);
 	}

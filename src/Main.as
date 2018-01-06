@@ -29,7 +29,7 @@ public class Main
 		Laya.init(800, 500);
 		Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
-		Laya.stage.bgColor = "#0F1312";
+		Laya.stage.bgColor = "#283331";
 		
 		this.sampleTestArr = [new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 

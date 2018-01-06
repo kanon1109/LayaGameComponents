@@ -2,7 +2,9 @@ package components
 {
 import laya.display.Sprite;
 import laya.events.Event;
+import laya.maths.Point;
 import laya.ui.Image;
+import laya.utils.Handler;
 
 /**
  * ...滑动条
@@ -10,9 +12,11 @@ import laya.ui.Image;
  */
 public class Slider extends Sprite 
 {
-	//UI
+	//滑块
 	private var thumbImg:Image;
+	//进度背景
 	private var barImg:Image;
+	//底板
 	private var barBgImg:Image;
 	//当前值
 	private var _value:int = 0;
@@ -26,6 +30,8 @@ public class Slider extends Sprite
 	private var _isHorizontal:Boolean;
 	//最大宽度
 	private var maxWidth:Number;
+	//移动的回调
+	public var onThumbMoveHandler:Handler;
 	public function Slider(thumbImgSkin:String, barBgImgSkin:String, barImgSkin:String="") 
 	{
 		this.barBgImg = new Image(barBgImgSkin);
@@ -36,30 +42,43 @@ public class Slider extends Sprite
 		this.addChild(this.barImg);
 		
 		this.thumbImg = new Image(thumbImgSkin);
+		this.thumbImg.anchorX = .5;
 		this.addChild(this.thumbImg);
 		this.thumbImg.on(Event.MOUSE_DOWN, this, thumbOnMouseDown);
-		this.thumbImg.on(Event.MOUSE_UP, this, thumbOnMouseUp);
+		Laya.stage.on(Event.MOUSE_UP, this, thumbOnMouseUp);
 		this.barBgImg.on(Event.MOUSE_DOWN, this, barOnMouseDown);
 	}
 	
 	private function barOnMouseDown(event:Event):void 
 	{
-		
+		var pt:Point = this.globalToLocal(new Point(event.stageX, event.stageY), true);
+		this.value = Math.round(pt.x /  this.barBgImg.width * 100);
+		if (this.onThumbMoveHandler)
+			this.onThumbMoveHandler.runWith(this._value);
 	}
 	
 	private function thumbOnMouseUp(event:Event):void 
 	{
-		this.thumbImg.off(Event.MOUSE_MOVE, this, thumbOnMouseMove);
+		this.off(Event.MOUSE_MOVE, this, thumbOnMouseMove);
 	}
 	
 	private function thumbOnMouseMove(event:Event):void 
 	{
-		
+		var pt:Point = this.globalToLocal(new Point(event.stageX, event.stageY), true);
+		this.thumbImg.x = pt.x;
+		if (this.thumbImg.x < this.thumbImg.width / 2) 
+			this.thumbImg.x = this.thumbImg.width / 2;
+		else if (this.thumbImg.x > this.barBgImg.width - this.thumbImg.width / 2) 
+			this.thumbImg.x = this.barBgImg.width - this.thumbImg.width / 2;
+		this._value = Math.round((this.thumbImg.x - this.thumbImg.width / 2) / (this.barBgImg.width - this.thumbImg.width) * (maxValue - minValue));
+		this.barImg.width = _value / (maxValue - minValue) * this.maxWidth;
+		if (this.onThumbMoveHandler)
+			this.onThumbMoveHandler.runWith(this._value);
 	}
 	
 	private function thumbOnMouseDown(event:Event):void 
 	{
-		this.thumbImg.on(Event.MOUSE_MOVE, this, thumbOnMouseMove);
+		this.on(Event.MOUSE_MOVE, this, thumbOnMouseMove);
 	}
 	
 	public function get value():int {return _value; }
@@ -68,7 +87,7 @@ public class Slider extends Sprite
 		_value = value;
 		if (value < minValue) value = minValue;
 		if (value > maxValue) value = maxValue;
-		this.thumbImg.x = _value / (maxValue - minValue) * (this.barBgImg.width - this.thumbImg.width);
+		this.thumbImg.x = _value / (maxValue - minValue) * (this.barBgImg.width - this.thumbImg.width) + this.thumbImg.width / 2;
 		this.barImg.width = _value / (maxValue - minValue) * this.maxWidth;
 	}
 	
@@ -120,6 +139,8 @@ public class Slider extends Sprite
 			this.barBgImg.removeSelf();
 			this.barBgImg = null;
 		}
+		this.onThumbMoveHandler = null;
+		Laya.stage.off(Event.MOUSE_UP, this, thumbOnMouseUp);
 		this.destroy();
 		this.removeSelf();
 	}
