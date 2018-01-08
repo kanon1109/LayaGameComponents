@@ -64,5 +64,19 @@ public class SliderTest extends SampleBase
 		this.txt.text = "value: " + value;
 	}
 	
+		override public function destroySelf():void 
+	{
+		if (this.slider)
+		{
+			this.slider.destroySelf();
+			this.slider = null;
+		}
+		if (this.slider2)
+		{
+			this.slider2.destroySelf();
+			this.slider2 = null;
+		}
+		super.destroySelf();
+	}
 }
 }

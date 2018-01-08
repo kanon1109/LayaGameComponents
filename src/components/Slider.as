@@ -232,8 +232,9 @@ public class Slider extends Sprite
 		}
 		this.onThumbMoveHandler = null;
 		Laya.timer.clear(this, delayCallBackHandler);
-		this.clearTimer(this, loopHandler);
 		Laya.stage.off(Event.MOUSE_UP, this, thumbOnMouseUp);
+		this.clearTimer(this, loopHandler);
+		this.off(Event.MOUSE_MOVE, this, thumbOnMouseMove);
 		this.destroy();
 		this.removeSelf();
 	}
