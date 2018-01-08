@@ -51,10 +51,12 @@ public class SliderTest extends SampleBase
 		this.slider2 = new Slider("res/thumb.png", "res/sliderBarBg.png", "res/sliderBar.png");
 		this.addChild(this.slider2);
 		this.slider2.x = 450;
-		this.slider2.y = 300;
+		this.slider2.y = 350;
 		this.slider2.maxValue = 100;
 		this.slider2.minValue = 1;
 		this.slider2.value = 0;
+		this.slider2.rotation = -90;
+		this.slider2.trackInteractionMode = Slider.PAGE;
 	}
 	
 	private function onThumbMoveHandler(value:int):void 
