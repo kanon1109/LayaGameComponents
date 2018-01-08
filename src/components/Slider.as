@@ -26,8 +26,6 @@ public class Slider extends Sprite
 	private var _maxValue:int = 100;
 	//最小值
 	private var _minValue:int = 0;
-	//是否横向
-	private var _isHorizontal:Boolean;
 	//最大宽度
 	private var maxWidth:Number;
 	//点击目标的位置
@@ -52,7 +50,7 @@ public class Slider extends Sprite
 		this.maxWidth = this.barImg.width;
 		this.addChild(this.barImg);
 		
-		this.page = 10;
+		this.page = 20;
 		this.thumbImg = new Image(thumbImgSkin);
 		this.thumbImg.anchorX = .5;
 		this.addChild(this.thumbImg);
@@ -73,9 +71,9 @@ public class Slider extends Sprite
 			this.targetX = pt.x;
 			this.isAdd = this.targetX > this.thumbImg.x;
 			if (this.isAdd)
-				this.updateValueByPosX(this.thumbImg.x + this.pageValue);
+				this.updateValueByPosX(this.thumbImg.x - this.thumbImg.width / 2 + this.pageValue);
 			else
-				this.updateValueByPosX(this.thumbImg.x - this.pageValue);
+				this.updateValueByPosX(this.thumbImg.x + this.thumbImg.width / 2 - this.pageValue);
 				
 			this.barBgImg.on(Event.MOUSE_MOVE, this, barOnMouseMove);
 			Laya.timer.once(300, this, delayCallBackHandler);
@@ -96,9 +94,9 @@ public class Slider extends Sprite
 	private function loopHandler():void 
 	{
 		if (this.isAdd)
-			this.updateValueByPosX(this.thumbImg.x + this.pageValue);
+			this.updateValueByPosX(this.thumbImg.x - this.thumbImg.width / 2 + this.pageValue);
 		else
-			this.updateValueByPosX(this.thumbImg.x - this.pageValue);
+			this.updateValueByPosX(this.thumbImg.x + this.thumbImg.width / 2 - this.pageValue);
 	}
 	
 	private function thumbOnMouseUp(event:Event):void 
@@ -197,7 +195,7 @@ public class Slider extends Sprite
 	public function set page(value:int):void 
 	{
 		_page = value;
-		this.pageValue = value / (this.maxValue - this.minValue) * this.maxWidth;
+		this.pageValue = this.maxWidth / value;
 		trace("pageValue", this.pageValue);
 	}
 	
