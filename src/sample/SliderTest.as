@@ -43,9 +43,11 @@ public class SliderTest extends SampleBase
 		this.slider.x = 100;
 		this.slider.y = 300;
 		this.slider.maxValue = 100;
-		this.slider.minValue = 1;
-		this.slider.value = 0;
+		this.slider.minValue = 0;
+		this.slider.value = 40;
 		this.txt.text = "value: " + this.slider.value;
+		this.slider.trackInteractionMode = Slider.PAGE;
+		this.slider.page = 20;
 		this.slider.onThumbMoveHandler = new Handler(this, onThumbMoveHandler);
 		
 		this.slider2 = new Slider("res/thumb.png", "res/sliderBarBg.png", "res/sliderBar.png");
@@ -53,10 +55,9 @@ public class SliderTest extends SampleBase
 		this.slider2.x = 450;
 		this.slider2.y = 350;
 		this.slider2.maxValue = 100;
-		this.slider2.minValue = 1;
-		this.slider2.value = 0;
+		this.slider2.minValue = 0;
+		this.slider2.value = 50;
 		this.slider2.rotation = -90;
-		this.slider2.trackInteractionMode = Slider.PAGE;
 	}
 	
 	private function onThumbMoveHandler(value:int):void 
@@ -64,7 +65,7 @@ public class SliderTest extends SampleBase
 		this.txt.text = "value: " + value;
 	}
 	
-		override public function destroySelf():void 
+	override public function destroySelf():void 
 	{
 		if (this.slider)
 		{
@@ -75,6 +76,13 @@ public class SliderTest extends SampleBase
 		{
 			this.slider2.destroySelf();
 			this.slider2 = null;
+		}
+		
+		if (this.txt)
+		{
+			this.txt.removeSelf();
+			this.txt.destroy();
+			this.txt = null;
 		}
 		super.destroySelf();
 	}
