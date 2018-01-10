@@ -67,8 +67,8 @@ public class ListViewTest extends SampleBase
 		for (i = 0; i < this.count; i++) 
 		{
 			var img:Image = new Image("res/itemBg.png");
-			img.x = 0;
-			img.y = i * 30;
+			img.x = i * 2;
+			img.y = i * 60;
 			this.scroll.addToContent(img);
 		}
 		
