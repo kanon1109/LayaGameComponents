@@ -47,7 +47,8 @@ public class SliderTest extends SampleBase
 		this.slider.value = 40;
 		this.txt.text = "value: " + this.slider.value;
 		this.slider.trackInteractionMode = Slider.PAGE;
-		this.slider.page = 20;
+		this.slider.page = 2;
+		this.slider.step = 10;
 		this.slider.onThumbMoveHandler = new Handler(this, onThumbMoveHandler);
 		
 		this.slider2 = new Slider("res/thumb.png", "res/sliderBarBg.png", "res/sliderBar.png");

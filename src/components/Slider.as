@@ -75,6 +75,7 @@ public class Slider extends Sprite
 		{
 			this.isMouseDown = true;
 			this.targetValue = pt.x / this.maxWidth * (this._maxValue - this._minValue);
+			trace(this.targetValue);
 			this.targetValue = MathUtil.roundToNearest(this.targetValue, this._step);
 			this.isAdd = pt.x > this.thumbImg.x;
 			if (this.isAdd)
