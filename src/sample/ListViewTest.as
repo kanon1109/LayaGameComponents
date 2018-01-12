@@ -6,6 +6,7 @@ import components.scroll.PageView;
 import components.scroll.ScrollView;
 import components.scroll.TableView;
 import laya.display.Sprite;
+import laya.events.Event;
 import laya.net.Loader;
 import laya.ui.Image;
 import laya.ui.Label;
@@ -18,6 +19,8 @@ public class ListViewTest extends SampleBase
 {
 	private var label:Label;
 	private var pageLabel:Label;
+	private var indexLabel:Label;
+	private var pageIndexLabel:Label;
 	private var scrollList:ListView;
 	private var scroll:ScrollView;
 	private var tableView:TableView;
@@ -77,7 +80,8 @@ public class ListViewTest extends SampleBase
 		this.tableView.x = this.scroll.x + 120;
 		this.tableView.y = this.scrollList.y;
 		this.tableView.isShowDebug = true;
-		this.tableView.updateTableCell = new Handler(this, updateTableCellHandler);
+		this.tableView.updateTableCellHandler = new Handler(this, updateTableCellHandler);
+		this.tableView.onCellClickHandler = new Handler(this, onCellClickHandler);
 		//this.tableView.isHorizontal = false;
 		this.addChild(this.tableView);
 
@@ -87,8 +91,9 @@ public class ListViewTest extends SampleBase
 		this.pageView.y = this.scrollList.y;
 		this.pageView.isShowDebug = true;
 		//this.pageView.isHorizontal = true;
-		this.pageView.updateTableCell = new Handler(this, updatePageViewCellHandler);
-		this.pageView.updatePageCell = new Handler(this, updatePageCellHandler);
+		this.pageView.updateTableCellHandler = new Handler(this, updatePageViewCellHandler);
+		this.pageView.updatePageCellHandler = new Handler(this, updatePageCellHandler);
+		this.pageView.onCellClickHandler = new Handler(this, onPageCellClickHandler);
 		this.addChild(this.pageView);
 		
 		this.label = new Label();
@@ -97,6 +102,15 @@ public class ListViewTest extends SampleBase
 		this.label.y = 30;
 		this.addChild(this.label);
 		this.label.text = "数量:" + this.count;
+		
+		this.indexLabel = new Label();
+		this.indexLabel.color = "#FF0000";
+		this.indexLabel.fontSize = 20;
+		this.indexLabel.x = this.scroll.x + 120;
+		this.indexLabel.y = this.scrollList.y - 30;
+		this.addChild(this.indexLabel);
+		this.indexLabel.text = "index: 0";
+		
 		
 		var txt1:Label = new Label("有限列表");
 		txt1.color = "#FFFFFF";
@@ -133,6 +147,14 @@ public class ListViewTest extends SampleBase
 		this.pageLabel.x = this.pageView.x;
 		this.pageLabel.y = this.pageView.y - 30;
 		this.pageLabel.text = "第0页";
+		
+		this.pageIndexLabel = new Label();
+		this.pageIndexLabel.color = "#FF0000";
+		this.pageIndexLabel.fontSize = 20;
+		this.pageIndexLabel.x = this.pageLabel.x + this.pageLabel.width + 10;
+		this.pageIndexLabel.y = this.pageLabel.y ;
+		this.addChild(this.pageIndexLabel);
+		this.pageIndexLabel.text = "index: 0";
 	}
 	
 	private function updatePageViewCellHandler(cell:Cell):void 
@@ -157,6 +179,16 @@ public class ListViewTest extends SampleBase
 		}
 		var itemVo:ItemVo = this.itemList[cell.index];
 		label.text = cell.index.toString();
+	}
+	
+	private function onCellClickHandler(cell:Cell):void 
+	{
+		this.indexLabel.text = "index: " + cell.index.toString();
+	}
+	
+	private function onPageCellClickHandler(cell:Cell):void 
+	{
+		this.pageIndexLabel.text = "index: " + cell.index.toString();
 	}
 
 	private function updatePageCellHandler():void 
