@@ -10,6 +10,7 @@ import sample.JoystickTest;
 import sample.ListViewTest;
 import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
+import sample.PanelTest;
 import sample.SampleBase;
 import sample.SimpleButtonTest;
 import sample.SliderTest;
@@ -32,11 +33,13 @@ public class Main
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
 		
+		DebugPanel.init();
+		
 		this.sampleTestArr = [new SimpleButtonTest(),
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
-							  new SliderTest()];
+							  new SliderTest(), new PanelTest()];
 		this.index = 0;
 		this.prevIndex = 0;
 		
@@ -49,17 +52,11 @@ public class Main
 	{
 		this.sampleSpt = new Sprite();
 		Laya.stage.addChild(this.sampleSpt);
-		
 		this.loadSample();
 		var nextBtn:SimpleButton = new SimpleButton("res/btn.png", null, null, "下一个");
 		var prevBtn:SimpleButton = new SimpleButton("res/btn.png", null, null, "上一个");
 		nextBtn.labelSize = 15;
 		prevBtn.labelSize = nextBtn.labelSize;
-		//prevBtn.labelColors = "#FF0000";
-		//prevBtn.labelStroke = 2;
-		//prevBtn.labelStrokeColor = "#FFcc00";
-		//prevBtn.labelBold = true;
-		
 		nextBtn.x = Laya.stage.width / 2 + 200 - nextBtn.width / 2;
 		nextBtn.y = Laya.stage.height - 100;
 		
@@ -68,9 +65,6 @@ public class Main
 		
 		Laya.stage.addChild(nextBtn);
 		Laya.stage.addChild(prevBtn);
-		
-		//Laya.stage.setChildIndex(nextBtn, 2);
-		//Laya.stage.setChildIndex(prevBtn, 3);
 		
 		nextBtn.on(Event.CLICK, this, nextBtnClickHandler);
 		prevBtn.on(Event.CLICK, this, prevBtnClickHandler);
@@ -81,7 +75,6 @@ public class Main
 		var sampleTest:SampleBase = this.sampleTestArr[this.index];
 		sampleTest.init();
 		this.sampleSpt.addChild(sampleTest);
-		//Laya.stage.setChildIndex(sampleTest, 2);
 	}
 	
 	private function destroySample():void
