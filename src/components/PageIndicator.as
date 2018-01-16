@@ -91,9 +91,10 @@ public class PageIndicator extends Sprite
 	 */
 	private function removeAllImg():void
 	{
+		var img:Image;
 		for (var i:int = this.normalArr.length - 1; i >= 0; --i) 
 		{
-			var img:Image = this.normalArr[i];
+			img = this.normalArr[i];
 			img.destroy();
 			img.removeSelf();
 			this.normalArr.splice(i, 1);
@@ -101,7 +102,7 @@ public class PageIndicator extends Sprite
 		
 		for (i = this.selectedArr.length - 1; i >= 0; --i) 
 		{
-			var img:Image = this.selectedArr[i];
+			img = this.selectedArr[i];
 			img.destroy();
 			img.removeSelf();
 			this.selectedArr.splice(i, 1);
