@@ -45,7 +45,6 @@ public class ListViewTest extends SampleBase
 	private function loadImgComplete():void
 	{
 		this.count = 50;
-		this.updateData();
 		
 		this.scrollList = new ListView();
 		this.scrollList.setViewSize(100, 200);
@@ -74,7 +73,9 @@ public class ListViewTest extends SampleBase
 			img.y = i * 60;
 			this.scroll.addToContent(img);
 		}
-		
+		this.count = 5000
+		this.updateData();
+
 		this.tableView = new TableView();
 		this.tableView.initTable(this.itemList.length, false, 212, 200, 50 + 3, 50 + 3);
 		this.tableView.x = this.scroll.x + 120;

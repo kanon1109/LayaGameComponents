@@ -50,6 +50,7 @@ public class SimpleButton extends Sprite
 		this.size(this.normalImg.width, this.normalImg.height);
 		this.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
 		this.on(Event.MOUSE_UP, this, onMouseUpHandler);
+		this.on(Event.MOUSE_OUT, this, onMouseUpHandler);
 		this.label = label;
 	}
 	
@@ -272,7 +273,6 @@ public class SimpleButton extends Sprite
 	
 	private function onMouseDownHandler():void 
 	{
-		trace(this.selectedImg);
 		if (!this.selectedImg)
 		{
 			this.normalImg.scale(.95, .95, false);
@@ -327,6 +327,7 @@ public class SimpleButton extends Sprite
 		
 		this.off(Event.MOUSE_DOWN, this, onMouseDownHandler);
 		this.off(Event.MOUSE_UP, this, onMouseUpHandler);
+		this.off(Event.MOUSE_OUT, this, onMouseUpHandler);
 		
 		this.destroy();
 		this.removeSelf();
