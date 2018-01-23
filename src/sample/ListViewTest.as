@@ -73,7 +73,7 @@ public class ListViewTest extends SampleBase
 			img.y = i * 60;
 			this.scroll.addToContent(img);
 		}
-		this.count = 5000
+		this.count = 50
 		this.updateData();
 
 		this.tableView = new TableView();
