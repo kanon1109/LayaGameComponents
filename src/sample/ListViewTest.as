@@ -82,7 +82,7 @@ public class ListViewTest extends SampleBase
 		this.tableView.x = this.scroll.x + 120;
 		this.tableView.y = this.scrollList.y;
 		this.tableView.isShowDebug = true;
-		this.tableView.isBounce = false;
+		//this.tableView.isBounce = false;
 		this.tableView.updateTableCellHandler = new Handler(this, updateTableCellHandler);
 		this.tableView.onCellClickHandler = new Handler(this, onCellClickHandler);
 		//this.tableView.isHorizontal = false;
@@ -93,7 +93,7 @@ public class ListViewTest extends SampleBase
 		this.pageView.x = this.tableView.x + 240;
 		this.pageView.y = this.scrollList.y;
 		this.pageView.isShowDebug = true;
-		this.pageView.isBounce = false;
+		//this.pageView.isBounce = false;
 		//this.pageView.isHorizontal = true;
 		this.pageView.updateTableCellHandler = new Handler(this, updatePageViewCellHandler);
 		this.pageView.updatePageCellHandler = new Handler(this, updatePageCellHandler);
