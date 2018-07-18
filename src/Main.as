@@ -7,6 +7,7 @@ import laya.display.Stage;
 import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
+import sample.GraphDataMapTest;
 import sample.JoystickTest;
 import sample.ListViewTest;
 import sample.NumericStepperTest;
@@ -40,7 +41,9 @@ public class Main
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
-							  new SliderTest(), new PanelTest()];
+							  new SliderTest(), new PanelTest(), new GraphDataMapTest()];
+							  
+	  this.sampleTestArr = [new GraphDataMapTest()];
 		this.index = 0;
 		this.prevIndex = 0;
 		
