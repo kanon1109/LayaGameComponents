@@ -43,7 +43,6 @@ public class Main
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
 							  new SliderTest(), new PanelTest(), new GraphDataMapTest()];
 							  
-	  this.sampleTestArr = [new GraphDataMapTest()];
 		this.index = 0;
 		this.prevIndex = 0;
 		

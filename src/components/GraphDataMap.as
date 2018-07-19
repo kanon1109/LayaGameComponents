@@ -1,8 +1,10 @@
 package components 
 {
-import laya.display.Graphics;
 import laya.display.Sprite;
 import laya.maths.Point;
+import laya.utils.Ease;
+import laya.utils.Handler;
+import laya.utils.Tween;
 import utils.MathUtil;
 /**
  * ...图形数据图 
@@ -11,8 +13,10 @@ import utils.MathUtil;
  */
 public class GraphDataMap extends Sprite 
 {
-	//数值的步长
-	public var step:Number;
+	//动画间隔(毫秒)
+	private var _duration:int = 500;
+	//是否显示过渡动画
+	public var isShowAnim:Boolean = true;
 	//数值最大值
 	public var maxValue:Number;
 	//数据填充颜色
@@ -20,7 +24,9 @@ public class GraphDataMap extends Sprite
 	//数据线段颜色
 	public var dataLineColor:String = "#FF0000";
 	//图形线段颜色
-	public var graphlineColor:String = "#FFFFFF";
+	public var graphLineColor:String = "#FFFFFF";
+	//数据点的半径
+	public var dataPointRadius:Number = 3;
 	//画布
 	private var fillCanvas:Sprite;
 	//是否显示绘制的线条
@@ -31,14 +37,15 @@ public class GraphDataMap extends Sprite
 	private var _radius:Number;
 	//数据列表
 	private var pointList:Array;
+	private var pointDataList:Array;
 	//最少角数不小于3个
-	private static const MIN_COUNT = 3;
+	private static const MIN_COUNT:uint = 3;
 	public function GraphDataMap() 
 	{
 		this.count = 6;
 		this.radius = 100;
-		this.step = 1;
 		this.maxValue = 100;
+		this.duration = 200;
 		this.fillCanvas = new Sprite();
 		this.fillCanvas.alpha = .5;
 		this.addChild(this.fillCanvas);
@@ -51,8 +58,9 @@ public class GraphDataMap extends Sprite
 	private function initGraphDataPoint():void
 	{
 		this.pointList = [];
+		this.pointDataList = [];
 		var angle:Number = 360 / this.count;
-		var curAngle:Number = 0;
+		var curAngle:Number = 90;
 		var sp:Point = new Point();
 		this.pointList.push(sp);
 		for (var i:int = 0; i < this.count; i++) 
@@ -63,6 +71,7 @@ public class GraphDataMap extends Sprite
 			p.y = Math.sin(rds) * this.radius;
 			curAngle -= angle;
 			this.pointList.push(p);
+			this.pointDataList.push(new Point());
 		}
 	}
 	
@@ -94,32 +103,58 @@ public class GraphDataMap extends Sprite
 	 */
 	public function drawGraph(dataList:Array):void
 	{	
-		this.fillCanvas.graphics.clear();
-		if (!dataList) return;
-		var length:int = dataList.length;
-		length = this.count - length;
-		for (var i:int = 0; i < length; i++) 
-		{
-			dataList.push(0)
-		}
-		length = dataList.length;
+		if (!dataList || dataList.length == 0) return;
+		var length:int = this.pointDataList.length;
 		var angle:Number = 360 / this.count;
-		var curAngle:Number = 0;
-		var ptList:Array = [];
+		var curAngle:Number = 90;
 		for (var i:int = 0; i < length; i++) 
 		{
-			var value:Number = dataList[i];
+			var value:Number = 0;
+			if (i < dataList.length) value = dataList[i];
 			if (value < 0) value = 0;
 			else if (value > this.maxValue) value = this.maxValue;
+			
 			var rds:Number = MathUtil.dgs2rds(curAngle);
 			var r:Number = this._radius * (value / this.maxValue);
-			var p:Point = new Point();
-			p.x = Math.cos(rds) * r;
-			p.y = Math.sin(rds) * r;
-			ptList.push(p.x);
-			ptList.push(p.y);
+			var x:Number = Math.cos(rds) * r;
+			var y:Number = Math.sin(rds) * r;
+			var point:Point = this.pointDataList[i];
 			curAngle -= angle;
-			this.fillCanvas.graphics.drawCircle(p.x, p.y, 2, this.dataFillColor, this.dataLineColor);
+			if (this.isShowAnim) 
+			{
+				this.frameLoop(1, this, loopHandler)
+				if (i == length - 1)
+					Tween.to(point, {x:x, y:y, complete:Handler.create(this, completeHandler)}, this._duration, Ease.sineOut, null, 0, true);
+				else
+					Tween.to(point, {x:x, y:y}, this._duration, Ease.sineOut, null, 0, true);
+			}
+			else
+			{
+				point.x = x;
+				point.y = y;
+			}
+		}
+		if (!this.isShowAnim)
+			this.updateHandler();
+	}
+	
+	private function completeHandler():void
+	{
+		this.clearTimer(this, loopHandler);
+		this.loopHandler(this, loopHandler);
+	}
+	
+	private function loopHandler():void 
+	{
+		this.fillCanvas.graphics.clear();
+		var ptList:Array = [];
+		var length:int = this.pointDataList.length;
+		for (var i:int = 0; i < length; i++) 
+		{
+			var point:Point = this.pointDataList[i];
+			ptList.push(point.x);
+			ptList.push(point.y);
+			this.fillCanvas.graphics.drawCircle(point.x, point.y, this.dataPointRadius, this.dataFillColor, this.dataLineColor);
 		}
 		this.fillCanvas.graphics.drawPoly(0, 0, ptList, this.dataFillColor, this.dataLineColor);
 	}
@@ -131,7 +166,7 @@ public class GraphDataMap extends Sprite
 	public function set showDraw(value:Boolean):void 
 	{
 		_showDraw = value;
-		this.drawGraphLine(this.graphlineColor);
+		this.drawGraphLine(this.graphLineColor);
 	}
 	
 	/**
@@ -143,7 +178,7 @@ public class GraphDataMap extends Sprite
 		_count = value;
 		if (_count < MIN_COUNT) _count = MIN_COUNT;
 		this.initGraphDataPoint();
-		this.drawGraphLine(this.graphlineColor);
+		this.drawGraphLine(this.graphLineColor);
 	}
 	
 	/**
@@ -154,7 +189,19 @@ public class GraphDataMap extends Sprite
 	{
 		_radius = value;
 		this.initGraphDataPoint();
-		this.drawGraphLine(this.graphlineColor);
+		this.drawGraphLine(this.graphLineColor);
+	}
+	
+	/**
+	 * 过渡动画的时间间隔
+	 */
+	public function get duration():int {return _duration;}
+	public function set duration(value:int):void 
+	{
+		if (value < 0) value = 0;
+		if (value == 0) this.isShowAnim = false;
+		else this.isShowAnim = true;
+		_duration = value;
 	}
 	
 	/**
@@ -162,7 +209,15 @@ public class GraphDataMap extends Sprite
 	 */
 	public function destroySelf():void
 	{
+		this.clearTimer(this, loopHandler);
+		var length:int = this.pointDataList.length;
+		for (var i:int = 0; i < length; i++) 
+		{
+			var point:Point = this.pointDataList[i];
+			Tween.clearAll(point);
+		}
 		this.pointList = null;
+		this.pointDataList = null;
 		if (this.fillCanvas)
 		{
 			this.fillCanvas.graphics.clear();

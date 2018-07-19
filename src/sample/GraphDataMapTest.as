@@ -1,6 +1,8 @@
 package sample 
 {
 import components.GraphDataMap;
+import laya.events.Event;
+import utils.Random;
 /**
  * ...图形数据图测试
  * @author ...Kanon
@@ -25,11 +27,21 @@ public class GraphDataMapTest extends SampleBase
 		this.gdm.showDraw = true;
 		this.gdm.count = 5;
 		this.gdm.maxValue = 5;
+		this.gdm.duration = 200;
+		this.gdm.dataPointRadius = 1;
 		this.gdm.drawGraph([5, 2, 4, 3, 3]);
+		
+		stage.on(Event.CLICK, this, clickHandler);
+	}
+	
+	private function clickHandler():void 
+	{
+		this.gdm.drawGraph([Random.randint(1, 5), Random.randint(1, 5), Random.randint(0, 5), Random.randint(0, 5), Random.randint(1, 5)]);
 	}
 	
 	override public function destroySelf():void 
 	{
+		stage.off(Event.CLICK, this, clickHandler);
 		if (this.gdm)
 		{
 			this.gdm.destroySelf();
