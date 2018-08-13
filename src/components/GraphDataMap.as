@@ -135,13 +135,13 @@ public class GraphDataMap extends Sprite
 			}
 		}
 		if (!this.isShowAnim)
-			this.updateHandler();
+			this.loopHandler();
 	}
 	
 	private function completeHandler():void
 	{
 		this.clearTimer(this, loopHandler);
-		this.loopHandler(this, loopHandler);
+		this.loopHandler();
 	}
 	
 	private function loopHandler():void 

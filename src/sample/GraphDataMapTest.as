@@ -28,6 +28,7 @@ public class GraphDataMapTest extends SampleBase
 		this.gdm.count = 5;
 		this.gdm.maxValue = 5;
 		this.gdm.duration = 200;
+		this.gdm.isShowAnim = false;
 		this.gdm.dataPointRadius = 1;
 		this.gdm.drawGraph([5, 2, 4, 3, 3]);
 		

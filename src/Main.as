@@ -7,6 +7,7 @@ import laya.display.Stage;
 import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
+import sample.CubicBezierCurveTest;
 import sample.GraphDataMapTest;
 import sample.JoystickTest;
 import sample.ListViewTest;
@@ -41,7 +42,7 @@ public class Main
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
-							  new SliderTest(), new PanelTest(), new GraphDataMapTest()];
+							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), new CubicBezierCurveTest()];
 							  
 		this.index = 0;
 		this.prevIndex = 0;
