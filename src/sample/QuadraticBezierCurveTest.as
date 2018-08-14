@@ -1,6 +1,6 @@
 package sample 
 {
-import curve.CubicBezierCurve;
+import curve.QuadraticBezierCurve;
 import laya.d3.math.Vector2;
 import laya.display.Sprite;
 import laya.events.Event;
@@ -9,30 +9,28 @@ import laya.utils.Ease;
 import laya.utils.Handler;
 import laya.utils.Tween;
 /**
- * ... 三次贝塞尔测试
+ * ... 二次贝塞尔测试
  * @author ...Kanon
  */
-public class CubicBezierCurveTest extends SampleBase 
+public class QuadraticBezierCurveTest extends SampleBase 
 {
-	private var cbc:CubicBezierCurve;
+	private var qbc:QuadraticBezierCurve;
 	private var canves:Sprite;
 	private var sp0:Sprite;
 	private var sp1:Sprite;
 	private var sp2:Sprite;
-	private var sp3:Sprite;
 	private var ball:Sprite;
 	private var curSp:Sprite;
 	private var tw:Tween;
-	public function CubicBezierCurveTest() 
+	public function QuadraticBezierCurveTest() 
 	{
 		super();
 	}
 	
-	
 	override public function init():void 
 	{
 		super.init();
-		this.titleLabel.text = "CubicBezierCurve";
+		this.titleLabel.text = "QuadraticBezierCurve";
 		
 		this.canves = new Sprite();
 		this.addChild(this.canves);
@@ -40,7 +38,6 @@ public class CubicBezierCurveTest extends SampleBase
 		var p0:Vector2 = new Vector2(200, 240)
 		var p1:Vector2 = new Vector2(130, 140)
 		var p2:Vector2 = new Vector2(330, 140)
-		var p3:Vector2 = new Vector2(530, 240)
 		
 		this.sp0 = new Sprite();
 		this.sp0.x = p0.x;
@@ -78,19 +75,6 @@ public class CubicBezierCurveTest extends SampleBase
 		this.sp2.mouseEnabled = true;
 		this.sp2.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
 		
-		this.sp3 = new Sprite();
-
-		this.sp3.x = p3.x;
-		this.sp3.y = p3.y;
-		this.sp3.pivotX = 10
-		this.sp3.pivotY = 10
-		this.sp3.width = 20;
-		this.sp3.height = 20;
-		this.sp3.graphics.drawCircle(10, 10, 10, "#FF00FF");
-		this.addChild(this.sp3);
-		this.sp3.mouseEnabled = true;
-		this.sp3.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
-		
 		this.ball = new Sprite();
 		this.ball.width = 20;
 		this.ball.height = 20;
@@ -99,9 +83,9 @@ public class CubicBezierCurveTest extends SampleBase
 		this.ball.graphics.drawCircle(10, 10, 10, "#CCFF00");
 		this.addChild(this.ball);
 
-		this.cbc = new CubicBezierCurve(p0, p1, p2, p3);
-		this.cbc.draw(this.canves.graphics);
-		var position:Vector2 = this.cbc.getPoint(0);
+		this.qbc = new QuadraticBezierCurve(p0, p1, p2);
+		this.qbc.draw(this.canves.graphics);
+		var position:Vector2 = this.qbc.getPoint(0);
 		this.ball.x = position.x;
 		this.ball.y = position.y;
 		
@@ -113,7 +97,7 @@ public class CubicBezierCurveTest extends SampleBase
 	
 	private function updateHandler(o:Object):void
 	{
-		var position:Vector2 = this.cbc.getPoint(o.value);
+		var position:Vector2 = this.qbc.getPoint(o.value);
 		this.ball.x = position.x;
 		this.ball.y = position.y;
 	}
@@ -161,10 +145,9 @@ public class CubicBezierCurveTest extends SampleBase
 		var p0:Vector2 = new Vector2(this.sp0.x, this.sp0.y)
 		var p1:Vector2 = new Vector2(this.sp1.x, this.sp1.y)
 		var p2:Vector2 = new Vector2(this.sp2.x, this.sp2.y)
-		var p3:Vector2 = new Vector2(this.sp3.x, this.sp3.y)
 		
-		this.cbc.initPoints(p0, p1, p2, p3);
-		this.cbc.draw(this.canves.graphics);
+		this.qbc.initPoints(p0, p1, p2);
+		this.qbc.draw(this.canves.graphics);
 	}
 	
 	/**
@@ -190,12 +173,6 @@ public class CubicBezierCurveTest extends SampleBase
 			this.sp2.removeSelf();
 			this.sp2 = null;
 		}
-		if (this.sp3)
-		{
-			this.sp3.destroy();
-			this.sp3.removeSelf();
-			this.sp3 = null;
-		}
 		if (this.canves)
 		{
 			this.canves.destroy();
@@ -213,10 +190,10 @@ public class CubicBezierCurveTest extends SampleBase
 			this.tw.clear();
 			this.tw = null
 		}
-		if (this.cbc)
+		if (this.qbc)
 		{
-			this.cbc.destroySelf();
-			this.cbc = null;
+			this.qbc.destroySelf();
+			this.qbc = null;
 		}
 		this.curSp = null;
 		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);

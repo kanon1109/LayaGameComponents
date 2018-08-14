@@ -1,7 +1,6 @@
 package 
 {
 import components.SimpleButton;
-import laya.debug.DebugPanel;
 import laya.display.Sprite;
 import laya.display.Stage;
 import laya.events.Event;
@@ -14,6 +13,7 @@ import sample.ListViewTest;
 import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
 import sample.PanelTest;
+import sample.QuadraticBezierCurveTest;
 import sample.SampleBase;
 import sample.SimpleButtonTest;
 import sample.SliderTest;
@@ -42,7 +42,8 @@ public class Main
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
-							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), new CubicBezierCurveTest()];
+							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), 
+							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest()];
 							  
 		this.index = 0;
 		this.prevIndex = 0;
