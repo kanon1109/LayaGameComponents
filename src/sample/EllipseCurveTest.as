@@ -34,7 +34,7 @@ public class EllipseCurveTest extends SampleBase
 		this.canves = new Sprite();
 		this.addChild(this.canves);
 		
-		this.ec = new EllipseCurve(stage.width / 2, stage.height / 2, 50, 150, 50);
+		this.ec = new EllipseCurve(stage.width / 2, stage.height / 2, 50, 150, 0);
 		this.ec.draw(this.canves.graphics);
 		
 		this.sp0 = new Sprite();
@@ -43,6 +43,7 @@ public class EllipseCurveTest extends SampleBase
 		this.sp0.pivotX = 10;
 		this.sp0.pivotY = 10;
 		this.sp0.graphics.drawCircle(10, 10, 10, "#FFFF00");
+		this.sp0.name = "sp0";
 		this.addChild(this.sp0);
 		this.sp0.mouseEnabled = true;
 		this.sp0.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
@@ -54,6 +55,7 @@ public class EllipseCurveTest extends SampleBase
 		this.sp1.height = 20;
 		this.sp1.pivotX = 10;
 		this.sp1.pivotY = 10;
+		this.sp1.name = "sp1";
 		this.sp1.graphics.drawCircle(10, 10, 10, "#00FFFF");
 		this.addChild(this.sp1);
 		this.sp1.mouseEnabled = true;
@@ -120,6 +122,19 @@ public class EllipseCurveTest extends SampleBase
 	{
 		this.curSp.x = event.stageX;
 		this.curSp.y = event.stageY;
+		if (this.curSp.name == "sp0")
+		{
+			this.ec.x = event.stageX;
+			this.ec.y = event.stageY;
+			this.sp1.x = this.ec.x + this.ec.xRadius;
+			this.sp1.y = this.ec.y + this.ec.yRadius;
+		}
+		else
+		{
+			this.ec.xRadius = this.curSp.x - this.ec.x;
+			this.ec.yRadius = this.curSp.y - this.ec.y;
+		}
+		this.ec.draw(this.canves.graphics);
 	}
 		
 	private function onMouseUpHandler(event:Event):void 
