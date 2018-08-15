@@ -4,7 +4,7 @@ import laya.d3.math.Vector2;
 import laya.display.Graphics;
 import laya.maths.Rectangle;
 /**
- * ...线段
+ * ...线段曲线
  * @author ...Kanon
  */
 public class LineCurve 

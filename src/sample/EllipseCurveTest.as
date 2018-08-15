@@ -1,11 +1,10 @@
 package sample 
 {
-import curve.SplineCurve;
+import curve.EllipseCurve;
 import laya.d3.math.Vector2;
 import laya.display.Sprite;
 import laya.events.Event;
 import laya.ui.Label;
-import laya.utils.Dictionary;
 import laya.utils.Ease;
 import laya.utils.Handler;
 import laya.utils.Tween;
@@ -13,17 +12,16 @@ import laya.utils.Tween;
  * ... 样条曲线测试
  * @author ...Kanon
  */
-public class SplineCurveTest extends SampleBase 
+public class EllipseCurveTest extends SampleBase 
 {
-	private var sc:SplineCurve;
+	private var ec:EllipseCurve;
 	private var canves:Sprite;
 	private var ball:Sprite;
 	private var curSp:Sprite;
+	private var sp0:Sprite;
+	private var sp1:Sprite;
 	private var tw:Tween;
-	private var spArr:Array;
-	private var dict:Dictionary;
-	private var txt:Label;
-	public function SplineCurveTest() 
+	public function EllipseCurveTest() 
 	{
 		super();
 	}
@@ -31,20 +29,37 @@ public class SplineCurveTest extends SampleBase
 	override public function init():void 
 	{
 		super.init();
-		this.titleLabel.text = "SplineCurveTest";
+		this.titleLabel.text = "EllipseCurveTest";
 		
-		this.txt = new Label("click stage add point");
-		this.txt.color = "FFFFFF";
-		this.txt.fontSize = 25;
-		this.addChild(this.txt);
-		this.txt.x = (stage.width - this.txt.displayWidth) / 2;
-		this.txt.y = (stage.height - this.txt.displayHeight) / 2;
-
 		this.canves = new Sprite();
 		this.addChild(this.canves);
 		
-		this.spArr = [];
-		this.dict = new Dictionary();
+		this.ec = new EllipseCurve(stage.width / 2, stage.height / 2, 50, 150, 50);
+		this.ec.draw(this.canves.graphics);
+		
+		this.sp0 = new Sprite();
+		this.sp0.width = 20;
+		this.sp0.height = 20;
+		this.sp0.pivotX = 10;
+		this.sp0.pivotY = 10;
+		this.sp0.graphics.drawCircle(10, 10, 10, "#FFFF00");
+		this.addChild(this.sp0);
+		this.sp0.mouseEnabled = true;
+		this.sp0.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
+		this.sp0.x = this.ec.x;
+		this.sp0.y = this.ec.y;
+		
+		this.sp1 = new Sprite();
+		this.sp1.width = 20;
+		this.sp1.height = 20;
+		this.sp1.pivotX = 10;
+		this.sp1.pivotY = 10;
+		this.sp1.graphics.drawCircle(10, 10, 10, "#00FFFF");
+		this.addChild(this.sp1);
+		this.sp1.mouseEnabled = true;
+		this.sp1.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
+		this.sp1.x = this.ec.x + this.ec.xRadius;
+		this.sp1.y = this.ec.y + this.ec.yRadius;
 		
 		this.ball = new Sprite();
 		this.ball.width = 20;
@@ -55,20 +70,19 @@ public class SplineCurveTest extends SampleBase
 		this.ball.y = 0;
 		this.ball.graphics.drawCircle(10, 10, 10, "#CCFF00");
 		
-		this.sc = new SplineCurve();
-		this.sc.draw(this.canves.graphics);
-		
-		var position:Vector2 = this.sc.getPoint(0);
+		var position:Vector2 = this.ec.getPoint(0);
 		this.ball.x = position.x;
 		this.ball.y = position.y;
 		
-		Laya.stage.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
+		this.addChild(this.ball);
+		var o:Object = {value : 0};
+		this.tw = Tween.to(o, {value:1, complete:Handler.create(this, completeHandler, [o]), update:Handler.create(this, updateHandler, [o], false)}, 1000, Ease.linearNone);
 		Laya.stage.on(Event.MOUSE_UP, this, onMouseUpHandler);
 	}
 
 	private function updateHandler(o:Object):void
 	{
-		var position:Vector2 = this.sc.getPoint(o.value);
+		var position:Vector2 = this.ec.getPoint(o.value);
 		this.ball.x = position.x;
 		this.ball.y = position.y;
 	}
@@ -98,33 +112,6 @@ public class SplineCurveTest extends SampleBase
 	
 	private function onMouseDownHandler(event:Event):void 
 	{
-		var sp:Sprite = new Sprite();
-		sp.x = event.stageX;
-		sp.y = event.stageY;
-		sp.width = 20;
-		sp.height = 20;
-		sp.pivotX = 10
-		sp.pivotY = 10
-		sp.graphics.drawCircle(10, 10, 10, "#FFFF00");
-		sp.mouseEnabled = true;
-		sp.on(Event.MOUSE_DOWN, this, onSpMouseDownHandler);
-		this.addChild(sp);
-		this.spArr.push(sp)
-		this.sc.addPoint(event.stageX, event.stageY);
-		this.sc.draw(this.canves.graphics, 32 * this.spArr.length);
-		this.dict.set(sp, this.spArr.length - 1);
-		
-		if (this.spArr.length == 2)
-		{
-			this.addChild(this.ball);
-			var o:Object = {value : 0};
-			this.tw = Tween.to(o, {value:1, complete:Handler.create(this, completeHandler, [o]), update:Handler.create(this, updateHandler, [o], false)}, 1000, Ease.linearNone);
-		}
-	}
-	
-	private function onSpMouseDownHandler(event:Event):void 
-	{
-		event.stopPropagation();
 		this.curSp = event.target as Sprite;
 		Laya.stage.on(Event.MOUSE_MOVE, this, onStageMouseMove);
 	}
@@ -133,9 +120,6 @@ public class SplineCurveTest extends SampleBase
 	{
 		this.curSp.x = event.stageX;
 		this.curSp.y = event.stageY;
-		var index:int = this.dict.get(this.curSp);
-		this.sc.setPoint(event.stageX, event.stageY, index);
-		this.sc.draw(this.canves.graphics, 32 * this.spArr.length);
 	}
 		
 	private function onMouseUpHandler(event:Event):void 
@@ -167,30 +151,23 @@ public class SplineCurveTest extends SampleBase
 			this.tw.clear();
 			this.tw = null
 		}
-		if (this.sc)
+		if (this.ec)
 		{
-			this.sc.destroySelf();
-			this.sc = null;
+			this.ec.destroySelf();
+			this.ec = null;
 		}
-		if (this.txt)
+		if (this.sp0)
 		{
-			this.txt.removeSelf()
-			this.txt.destroy();
-			this.txt = null;
+			this.sp0.destroy();
+			this.sp0.removeSelf();
+			this.sp0 = null;
 		}
-		if (this.spArr)
+		if (this.sp1)
 		{
-			var length:int = this.spArr.length;
-			for (var i:int = length - 1; i >= 0; i--) 
-			{
-				var sp:Sprite = this.spArr[i];
-				sp.removeSelf();
-				sp.destroy();
-				this.spArr.splice(i, 1);
-			}
+			this.sp1.destroy();
+			this.sp1.removeSelf();
+			this.sp1 = null;
 		}
-		this.spArr = null;
-		this.dict = null;
 		this.curSp = null;
 		Laya.stage.off(Event.MOUSE_MOVE, this, onStageMouseMove);
 		Laya.stage.off(Event.MOUSE_DOWN, this, onMouseDownHandler);

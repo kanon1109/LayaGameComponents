@@ -7,6 +7,7 @@ import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
 import sample.CubicBezierCurveTest;
+import sample.EllipseCurveTest;
 import sample.GraphDataMapTest;
 import sample.JoystickTest;
 import sample.LineCurveTest;
@@ -46,11 +47,11 @@ public class Main
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
 							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), 
 							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest(), */
-							  new SplineCurveTest(), new LineCurveTest()];
+							  new SplineCurveTest(), new LineCurveTest(), 
+							  new EllipseCurveTest()];
 							  
 		this.index = 0;
 		this.prevIndex = 0;
-		
 		var arr:Array = [];
 		arr.push({url:"res/btn.png", type:Loader.IMAGE});
 		Laya.loader.load(arr, Handler.create(this, loadImgComplete), null, Loader.IMAGE);
