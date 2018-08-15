@@ -1,16 +1,18 @@
 package curve 
 {
 import laya.d3.math.Vector2;
+import laya.display.Graphics;
 /**
  * ...样条曲线
  * @author ...Kanon
  */
 public class SplineCurve 
 {
+	//点坐标的列表
 	private var points:Array;
-	public function SplineCurve(points:Array) 
+	public function SplineCurve() 
 	{
-		this.addPoints(points);
+		
 	}
 	
 	/**
@@ -41,12 +43,39 @@ public class SplineCurve
 	}
 	
 	/**
+	 * 设置一个点的位置
+	 * @param	x	x坐标
+	 * @param	y	y坐标
+	 * @param	index	索引
+	 */
+	public function setPoint(x:Number, y:Number, index:int):void
+	{
+		if (!this.points) return;
+		if (index < 0 || index > this.points.length - 1) return;
+		var v2d:Vector2 = this.points[index];
+		v2d.x = x;
+		v2d.y = y;
+	}
+		
+	/**
+	 * 获取起始点
+	 * @return
+	 */
+	public function getStartPoint():Vector2
+	{
+		if (!this.points) return new Vector2();
+		return this.points[0];
+	}
+	
+	/**
 	 * 获取曲线上某一点的位置
 	 * @param	t 沿曲线的位置其中0是开始，1是结束。
 	 * @return	位置坐标
 	 */
 	public function getPoint(t:Number):Vector2
 	{
+		if (t < 0) t = 0;
+		else if (t > 1) t = 1;
 		if (!this.points) return new Vector2();
 		var points:Array = this.points;
 		var point:Number = (this.points.length - 1) * t;
@@ -60,13 +89,38 @@ public class SplineCurve
 	}
 	
 	/**
-	 * 获取起始点
-	 * @return
+	 * 使用getPoint获取点序列
+	 * @param	divisions		分割数量
+	 * @return	坐标列表
 	 */
-	public function getStartPoint():Vector2
+	public function getPoints(divisions:int = 5):Array
 	{
-		if (!this.points) return new Vector2();
-		return this.points[0];
+		var points:Array = [];
+		for (var i:int = 0; i <= divisions; i++) 
+		{
+			points.push(this.getPoint(i / divisions));
+		}
+		return points;
+	}
+	
+	/**
+	 * 绘制
+	 * @param	graphics		画布
+	 * @param	pointsTotal		点的数量	
+	 */
+	public function draw(graphics:Graphics, pointsTotal:int = 32):void
+	{
+		if (!graphics) return;
+		graphics.clear();
+		var points:Array = this.getPoints(pointsTotal);
+		var length:int = points.length;
+		var sp:Vector2 = points[0]
+		for (var i:int = 1; i < length; i++) 
+		{
+			var p:Vector2 = points[i];
+			graphics.drawLine(sp.x, sp.y, p.x, p.y, "#FFFFFF", 1);
+			sp = p;
+		}
 	}
 	
 	/**

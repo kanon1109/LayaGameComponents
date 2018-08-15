@@ -250,8 +250,9 @@ public class SimpleButton extends Sprite
 		}
 	}
 	
-	private function onMouseUpHandler():void 
+	private function onMouseUpHandler(event:Event):void 
 	{
+		event.stopPropagation();
 		if (!this.selectedImg)
 		{
 			this.normalImg.scale(1, 1, false);
@@ -271,8 +272,9 @@ public class SimpleButton extends Sprite
 		}
 	}
 	
-	private function onMouseDownHandler():void 
+	private function onMouseDownHandler(event:Event):void 
 	{
+		event.stopPropagation();
 		if (!this.selectedImg)
 		{
 			this.normalImg.scale(.95, .95, false);

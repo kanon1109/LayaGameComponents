@@ -198,6 +198,7 @@ public class CubicBezierCurveTest extends SampleBase
 		}
 		if (this.canves)
 		{
+			this.canves.graphics.clear();
 			this.canves.destroy();
 			this.canves.removeSelf();
 			this.canves = null;
@@ -219,6 +220,8 @@ public class CubicBezierCurveTest extends SampleBase
 			this.cbc = null;
 		}
 		this.curSp = null;
+		Laya.stage.off(Event.MOUSE_MOVE, this, onStageMouseMove);
+		Laya.stage.off(Event.MOUSE_DOWN, this, onMouseDownHandler);
 		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
 		super.destroySelf();
 	}

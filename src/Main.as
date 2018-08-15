@@ -9,6 +9,7 @@ import laya.utils.Handler;
 import sample.CubicBezierCurveTest;
 import sample.GraphDataMapTest;
 import sample.JoystickTest;
+import sample.LineCurveTest;
 import sample.ListViewTest;
 import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
@@ -17,6 +18,7 @@ import sample.QuadraticBezierCurveTest;
 import sample.SampleBase;
 import sample.SimpleButtonTest;
 import sample.SliderTest;
+import sample.SplineCurveTest;
 import sample.TabBarTest;
 import sample.ToggleSwitchTest;
 /**
@@ -38,12 +40,13 @@ public class Main
 		
 		//DebugPanel.init();
 		
-		this.sampleTestArr = [new SimpleButtonTest(),
+		this.sampleTestArr = [/*new SimpleButtonTest(),
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
 							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), 
-							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest()];
+							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest(), */
+							  new SplineCurveTest(), new LineCurveTest()];
 							  
 		this.index = 0;
 		this.prevIndex = 0;
@@ -88,7 +91,7 @@ public class Main
 		sampleTest.destroySelf();
 	}
 	
-	private function prevBtnClickHandler():void 
+	private function prevBtnClickHandler(event:Event):void 
 	{
 		if (this.index == 0) return;
 		this.prevIndex = this.index;
@@ -97,7 +100,7 @@ public class Main
 		this.loadSample();
 	}
 	
-	private function nextBtnClickHandler():void 
+	private function nextBtnClickHandler(event:Event):void 
 	{
 		if (this.index == this.sampleTestArr.length - 1) return;
 		this.prevIndex = this.index;

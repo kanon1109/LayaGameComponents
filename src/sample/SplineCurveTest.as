@@ -4,6 +4,8 @@ import curve.SplineCurve;
 import laya.d3.math.Vector2;
 import laya.display.Sprite;
 import laya.events.Event;
+import laya.ui.Label;
+import laya.utils.Dictionary;
 import laya.utils.Ease;
 import laya.utils.Handler;
 import laya.utils.Tween;
@@ -16,8 +18,11 @@ public class SplineCurveTest extends SampleBase
 	private var sc:SplineCurve;
 	private var canves:Sprite;
 	private var ball:Sprite;
+	private var curSp:Sprite;
 	private var tw:Tween;
-	private var spArr:Array = [];
+	private var spArr:Array;
+	private var dict:Dictionary;
+	private var txt:Label;
 	public function SplineCurveTest() 
 	{
 		super();
@@ -27,10 +32,19 @@ public class SplineCurveTest extends SampleBase
 	{
 		super.init();
 		this.titleLabel.text = "SplineCurveTest";
-		this.sc = new SplineCurve();
 		
+		this.txt = new Label("click stage add point");
+		this.txt.color = "FFFFFF";
+		this.txt.fontSize = 25;
+		this.addChild(this.txt);
+		this.txt.x = (stage.width - this.txt.displayWidth) / 2;
+		this.txt.y = (stage.height - this.txt.displayHeight) / 2;
+
 		this.canves = new Sprite();
 		this.addChild(this.canves);
+		
+		this.spArr = [];
+		this.dict = new Dictionary();
 		
 		this.ball = new Sprite();
 		this.ball.width = 20;
@@ -40,13 +54,18 @@ public class SplineCurveTest extends SampleBase
 		this.ball.x = 0;
 		this.ball.y = 0;
 		this.ball.graphics.drawCircle(10, 10, 10, "#CCFF00");
-		this.addChild(this.ball);
 		
-		var o:Object = {value : 0};
-		this.tw = Tween.to(o, {value:1, complete:Handler.create(this, completeHandler, [o]), update:Handler.create(this, updateHandler, [o], false)}, 1000, Ease.linearNone);
+		this.sc = new SplineCurve();
+		this.sc.draw(this.canves.graphics);
+		
+		var position:Vector2 = this.sc.getPoint(0);
+		this.ball.x = position.x;
+		this.ball.y = position.y;
+		
 		Laya.stage.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
+		Laya.stage.on(Event.MOUSE_UP, this, onMouseUpHandler);
 	}
-	
+
 	private function updateHandler(o:Object):void
 	{
 		var position:Vector2 = this.sc.getPoint(o.value);
@@ -87,9 +106,42 @@ public class SplineCurveTest extends SampleBase
 		sp.pivotX = 10
 		sp.pivotY = 10
 		sp.graphics.drawCircle(10, 10, 10, "#FFFF00");
+		sp.mouseEnabled = true;
+		sp.on(Event.MOUSE_DOWN, this, onSpMouseDownHandler);
 		this.addChild(sp);
 		this.spArr.push(sp)
 		this.sc.addPoint(event.stageX, event.stageY);
+		this.sc.draw(this.canves.graphics, 32 * this.spArr.length);
+		this.dict.set(sp, this.spArr.length - 1);
+		
+		if (this.spArr.length == 2)
+		{
+			this.addChild(this.ball);
+			var o:Object = {value : 0};
+			this.tw = Tween.to(o, {value:1, complete:Handler.create(this, completeHandler, [o]), update:Handler.create(this, updateHandler, [o], false)}, 1000, Ease.linearNone);
+		}
+	}
+	
+	private function onSpMouseDownHandler(event:Event):void 
+	{
+		event.stopPropagation();
+		this.curSp = event.target as Sprite;
+		Laya.stage.on(Event.MOUSE_MOVE, this, onStageMouseMove);
+	}
+	
+	private function onStageMouseMove(event:Event):void 
+	{
+		this.curSp.x = event.stageX;
+		this.curSp.y = event.stageY;
+		var index:int = this.dict.get(this.curSp);
+		this.sc.setPoint(event.stageX, event.stageY, index);
+		this.sc.draw(this.canves.graphics, 32 * this.spArr.length);
+	}
+		
+	private function onMouseUpHandler(event:Event):void 
+	{
+		this.curSp = null;
+		Laya.stage.off(Event.MOUSE_MOVE, this, onStageMouseMove);
 	}
 	
 	/**
@@ -99,6 +151,7 @@ public class SplineCurveTest extends SampleBase
 	{
 		if (this.canves)
 		{
+			this.canves.graphics.clear();
 			this.canves.destroy();
 			this.canves.removeSelf();
 			this.canves = null;
@@ -119,7 +172,23 @@ public class SplineCurveTest extends SampleBase
 			this.sc.destroySelf();
 			this.sc = null;
 		}
+		
+		if (this.spArr)
+		{
+			var length:int = this.spArr.length;
+			for (var i:int = length - 1; i >= 0; i--) 
+			{
+				var sp:Sprite = this.spArr[i];
+				sp.removeSelf();
+				sp.destroy();
+				this.spArr.splice(i, 1);
+			}
+		}
+		this.spArr = null;
+		this.dict = null;
 		this.curSp = null;
+		Laya.stage.off(Event.MOUSE_MOVE, this, onStageMouseMove);
+		Laya.stage.off(Event.MOUSE_DOWN, this, onMouseDownHandler);
 		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
 		super.destroySelf();
 	}
