@@ -113,6 +113,20 @@ public class Vector2D
         
         return Math.sqrt(dx*dx + dy*dy);
     }
+	
+	 /**
+     * 获取当前向量与另一个向量之间的距离
+     * 
+     * @param v 另一个向量对象
+     * @reutrn 当前向量与v2之间的距离的平方
+     */ 
+    public function dist2(v:Vector2D):Number
+    {
+        var dx:Number = v.x - x;
+        var dy:Number = v.y - y;
+        
+        return dx*dx + dy*dy;
+    }
     
     /**
      *  获取当前向量与另一个向量之间的夹角
