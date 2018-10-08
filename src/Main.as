@@ -11,6 +11,7 @@ import sample.EllipseCurveTest;
 import sample.GraphDataMapTest;
 import sample.JoystickTest;
 import sample.LineCurveTest;
+import sample.LineSegmentTest;
 import sample.ListViewTest;
 import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
@@ -49,7 +50,9 @@ public class Main
 							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), 
 							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest(), 
 							  new SplineCurveTest(), new LineCurveTest(), 
-							  new EllipseCurveTest(), new ResidueShadowTest()];
+							  new EllipseCurveTest(), new LineSegmentTest(),
+							  new ResidueShadowTest()
+							  ];
 							  
 		this.index = 0;
 		this.prevIndex = 0;
