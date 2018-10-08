@@ -16,6 +16,7 @@ import sample.NumericStepperTest;
 import sample.PageIndicatorTest;
 import sample.PanelTest;
 import sample.QuadraticBezierCurveTest;
+import sample.ResidueShadowTest;
 import sample.SampleBase;
 import sample.SimpleButtonTest;
 import sample.SliderTest;
@@ -41,14 +42,14 @@ public class Main
 		
 		//DebugPanel.init();
 		
-		this.sampleTestArr = [/*new SimpleButtonTest(),
+		this.sampleTestArr = [new SimpleButtonTest(),
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
 							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), 
-							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest(), */
+							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest(), 
 							  new SplineCurveTest(), new LineCurveTest(), 
-							  new EllipseCurveTest()];
+							  new EllipseCurveTest(), new ResidueShadowTest()];
 							  
 		this.index = 0;
 		this.prevIndex = 0;
