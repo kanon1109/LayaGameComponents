@@ -1,6 +1,7 @@
 package 
 {
 import components.SimpleButton;
+import laya.debug.DebugPanel;
 import laya.display.Sprite;
 import laya.display.Stage;
 import laya.events.Event;
@@ -41,7 +42,7 @@ public class Main
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
 		
-		//DebugPanel.init();
+		DebugPanel.init();
 		
 		this.sampleTestArr = [new SimpleButtonTest(),
 							  new TabBarTest(), new ListViewTest(), 
