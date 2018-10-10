@@ -55,6 +55,7 @@ public class ChainTest extends SampleBase
 		}
 		Laya.stage.off(Event.MOUSE_DOWN, this, onMouseDownHandler);
 		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
+		this.clearTimer(this, loop);
 		super.destroySelf();
 	}
 }

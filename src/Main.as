@@ -6,10 +6,12 @@ import laya.display.Stage;
 import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
+import laya.utils.Stat;
 import sample.BloodSplatterTest;
 import sample.ChainTest;
 import sample.CubicBezierCurveTest;
 import sample.EllipseCurveTest;
+import sample.FlameGunTest;
 import sample.GraphDataMapTest;
 import sample.JoystickTest;
 import sample.LineCurveTest;
@@ -44,6 +46,7 @@ public class Main
 		Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
+		Stat.show(Laya.stage.desginWidth - 100);
 		
 		//DebugPanel.init();
 		
@@ -57,6 +60,7 @@ public class Main
 							  new EllipseCurveTest(), new LineSegmentTest(),
 							  new ResidueShadowTest(), new TextScrollTest(),
 							  new ChainTest(), new BloodSplatterTest(),
+							  new FlameGunTest(),
 							  ];
 							  
 		this.index = 0;

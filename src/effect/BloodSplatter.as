@@ -1,6 +1,7 @@
 package effect 
 {
 import laya.display.Sprite;
+import laya.resource.Texture;
 import laya.ui.Image;
 /**
  * ...血渍
@@ -18,10 +19,10 @@ public class BloodSplatter
     private var size:Number;
     //容器
     private var parent:Sprite;
-	//图片链接
-	private var url:String;
 	//存放图片的数组
 	private var bloodList:Array;
+	//血渍纹理
+	private var tex:Texture;
 	public function BloodSplatter(url:String, 
 								  parent:Sprite, 
 								  num:int = 12,
@@ -29,13 +30,13 @@ public class BloodSplatter
 								  intensity:Number = .8,
 								  size:Number = 1.6) 
 	{
-		this.url = url;
 		this.parent = parent;
 		this.num = num;
 		this.dis = dis;
 		this.intensity = intensity;
 		this.size = size;
 		this.bloodList = [];
+		this.tex = Laya.loader.getRes(url);
 	}
 	
 	/**
@@ -48,8 +49,8 @@ public class BloodSplatter
 		for (var i:int = 0; i < this.num; i += 1)
         {
             //创建血迹
-            var blood:Image = new Image(this.url);
-			blood.cacheAsBitmap = true;
+            var blood:Image = new Image();
+			blood.source = this.tex;
             //设置位置
             blood.x = x + Math.random() * (this.dis + 1) - (this.dis / 2);
             blood.y = y + Math.random() * (this.dis + 1) - (this.dis / 2);
@@ -60,7 +61,7 @@ public class BloodSplatter
             blood.rotation = Math.random() * 360;
             //透明度
             blood.alpha = Math.random() * this.intensity + this.intensity / 4;
-            this.parent.addChild(blood);
+			this.parent.addChild(blood);
             this.bloodList.push(blood);
         }
 	}
@@ -86,6 +87,8 @@ public class BloodSplatter
 	public function destroy():void
 	{
 		this.clear();
+		if (this.tex) 
+			this.tex.destroy(true);
 		this.bloodList = null;
 	}
 }
