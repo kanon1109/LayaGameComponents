@@ -1,7 +1,6 @@
 package 
 {
 import components.SimpleButton;
-import laya.debug.DebugPanel;
 import laya.display.Sprite;
 import laya.display.Stage;
 import laya.events.Event;
@@ -24,7 +23,9 @@ import sample.SimpleButtonTest;
 import sample.SliderTest;
 import sample.SplineCurveTest;
 import sample.TabBarTest;
+import sample.TextScrollTest;
 import sample.ToggleSwitchTest;
+//import laya.debug.DebugPanel;
 /**
  * ...入口
  * @author ...Kanon
@@ -42,17 +43,17 @@ public class Main
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
 		
-		DebugPanel.init();
+		//DebugPanel.init();
 		
-		this.sampleTestArr = [new SimpleButtonTest(),
+		this.sampleTestArr = [/*new SimpleButtonTest(),
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
 							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), 
 							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest(), 
 							  new SplineCurveTest(), new LineCurveTest(), 
-							  new EllipseCurveTest(), new LineSegmentTest(),
-							  new ResidueShadowTest()
+							  new EllipseCurveTest(), new LineSegmentTest(),*/
+							  new ResidueShadowTest(), new TextScrollTest(),
 							  ];
 							  
 		this.index = 0;
