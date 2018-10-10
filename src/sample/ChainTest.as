@@ -18,6 +18,7 @@ public class ChainTest extends SampleBase
 	override public function init():void 
 	{
 		super.init();
+		this.titleLabel.text = "Chain";
 		this.chain = new Chain(this);
 		this.chain.move(Laya.stage.mouseX, Laya.stage.mouseY);
 		this.chain.lineColor = "#FFFF00";

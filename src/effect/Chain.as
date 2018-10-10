@@ -138,8 +138,8 @@ public class Chain
 	/**
 	 * 设置线条颜色
 	 */
-	public function get lineColor():Number{ return this._lineColor; }
-	public function set lineColor(value:Number)
+	public function get lineColor():String{ return this._lineColor; }
+	public function set lineColor(value:String):void
 	{
 		this._lineColor = value;
 	}
@@ -148,7 +148,7 @@ public class Chain
 	 * 线条粗细
 	 */
 	public function get lineSize():Number{ return this._lineSize; }
-	public function set lineSize(value:Number)
+	public function set lineSize(value:Number):void
 	{
 		this._lineSize = value;
 	}
@@ -181,7 +181,9 @@ class Line extends Sprite
 	 * @param	color
 	 * @param	thickness
 	 */
-	public function init(sx:Number, sy:Number, ex:Number, ey:Number, color:String, thickness:Number = 5)
+	public function init(sx:Number, sy:Number, 
+						ex:Number, ey:Number, 
+						color:String, thickness:Number = 5):void
 	{
 		this.sx = sx;
 		this.sy = sy;
@@ -216,9 +218,8 @@ class Line extends Sprite
 	 * 线条粗细
 	 */
 	public function get thickness():Number{ return this._thickness; }
-	public function set thickness(value:Number)
+	public function set thickness(value:Number):void
 	{
 		this._thickness = value;
 	}
-}
 }

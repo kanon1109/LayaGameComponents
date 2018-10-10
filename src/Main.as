@@ -6,6 +6,7 @@ import laya.display.Stage;
 import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
+import sample.BloodSplatterTest;
 import sample.ChainTest;
 import sample.CubicBezierCurveTest;
 import sample.EllipseCurveTest;
@@ -55,7 +56,7 @@ public class Main
 							  new SplineCurveTest(), new LineCurveTest(), 
 							  new EllipseCurveTest(), new LineSegmentTest(),
 							  new ResidueShadowTest(), new TextScrollTest(),
-							  new ChainTest(),
+							  new ChainTest(), new BloodSplatterTest(),
 							  ];
 							  
 		this.index = 0;
