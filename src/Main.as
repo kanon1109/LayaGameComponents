@@ -6,6 +6,7 @@ import laya.display.Stage;
 import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
+import sample.ChainTest;
 import sample.CubicBezierCurveTest;
 import sample.EllipseCurveTest;
 import sample.GraphDataMapTest;
@@ -45,15 +46,16 @@ public class Main
 		
 		//DebugPanel.init();
 		
-		this.sampleTestArr = [/*new SimpleButtonTest(),
+		this.sampleTestArr = [new SimpleButtonTest(),
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
 							  new SliderTest(), new PanelTest(), new GraphDataMapTest(), 
 							  new CubicBezierCurveTest(), new QuadraticBezierCurveTest(), 
 							  new SplineCurveTest(), new LineCurveTest(), 
-							  new EllipseCurveTest(), new LineSegmentTest(),*/
+							  new EllipseCurveTest(), new LineSegmentTest(),
 							  new ResidueShadowTest(), new TextScrollTest(),
+							  new ChainTest(),
 							  ];
 							  
 		this.index = 0;
