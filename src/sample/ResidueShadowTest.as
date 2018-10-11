@@ -135,6 +135,7 @@ public class ResidueShadowTest extends SampleBase
 			this.bossAni2.destroy();
 			this.bossAni2 = null;
 		}
+		this.clearTimer(this, loop);
 		this.curSpt = null;
 		Laya.stage.off(Event.MOUSE_UP, this, onMouseUpHandler);
 		super.destroySelf();

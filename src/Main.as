@@ -7,6 +7,7 @@ import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
 import laya.utils.Stat;
+import sample.BlackHoleTest;
 import sample.BloodSplatterTest;
 import sample.ChainTest;
 import sample.CubicBezierCurveTest;
@@ -60,7 +61,7 @@ public class Main
 							  new EllipseCurveTest(), new LineSegmentTest(),
 							  new ResidueShadowTest(), new TextScrollTest(),
 							  new ChainTest(), new BloodSplatterTest(),
-							  new FlameGunTest(),
+							  new FlameGunTest(), new BlackHoleTest(),
 							  ];
 							  
 		this.index = 0;
