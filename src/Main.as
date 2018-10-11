@@ -30,7 +30,6 @@ import sample.SplineCurveTest;
 import sample.TabBarTest;
 import sample.TextScrollTest;
 import sample.ToggleSwitchTest;
-//import laya.debug.DebugPanel;
 /**
  * ...入口
  * @author ...Kanon
