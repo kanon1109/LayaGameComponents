@@ -19,6 +19,7 @@ public class ScreenCaptureTest extends SampleBase
 	private var captureBtn:SimpleButton;
 	private var saveBtn:SimpleButton;
 	private var debugTxt:Text;
+	private var captureSpt:Sprite;
 	public function ScreenCaptureTest() 
 	{
 		super();
@@ -70,6 +71,13 @@ public class ScreenCaptureTest extends SampleBase
 	
 	private function captureBtnClickHandler(event:Event):void 
 	{
+		if (this.captureSpt)
+		{
+			this.captureSpt.removeSelf();
+			this.captureSpt.destroy();
+			this.captureSpt = null;
+		}
+		
 		var sp:Sprite = ScreenCapture.cature();
 		if (sp)
 		{
@@ -79,6 +87,7 @@ public class ScreenCaptureTest extends SampleBase
 			sp.x = Laya.stage.width / 2;
 			sp.y = Laya.stage.height / 2;
 			Tween.to(sp, { scaleX:.5, scaleY:.5 }, 500);
+			this.captureSpt = sp;
 		}
 	}
 	
@@ -96,6 +105,13 @@ public class ScreenCaptureTest extends SampleBase
 			this.saveBtn.off(Event.MOUSE_DOWN, this, saveBtnClickHandler);
 			this.saveBtn.destroySelf();
 			this.saveBtn = null;
+		}
+		
+		if (this.captureSpt)
+		{
+			this.captureSpt.removeSelf();
+			this.captureSpt.destroy();
+			this.captureSpt = null;
 		}
 		
 		super.destroySelf();
