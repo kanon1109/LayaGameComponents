@@ -24,6 +24,7 @@ import sample.PanelTest;
 import sample.QuadraticBezierCurveTest;
 import sample.ResidueShadowTest;
 import sample.SampleBase;
+import sample.ScreenCaptureTest;
 import sample.SimpleButtonTest;
 import sample.SliderTest;
 import sample.SplineCurveTest;
@@ -42,8 +43,8 @@ public class Main
 	private var sampleSpt:Sprite;
 	public function Main() 
 	{
-		Laya.init(800, 500);
-		Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
+		Laya.init(1136, 768);
+		Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
 		Stat.show(Laya.stage.desginWidth - 100);
@@ -61,6 +62,7 @@ public class Main
 							  new ResidueShadowTest(), new TextScrollTest(),
 							  new ChainTest(), new BloodSplatterTest(),
 							  new FlameGunTest(), new BlackHoleTest(),
+							  new ScreenCaptureTest(),
 							  ];
 							  
 		this.index = 0;
