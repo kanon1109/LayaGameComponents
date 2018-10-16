@@ -65,7 +65,10 @@ public class ScreenCapture
 	{
 		if (!sp || Render.isConchApp) return null;
 		var htmlCanvas:HTMLCanvas = sp.drawToCanvas(width, height, 0, 0);
-		return htmlCanvas.getCanvas();
+		//获取<canvas>对象
+		var canvas:* = htmlCanvas.getCanvas();
+		if (!canvas) return null;
+		return canvas.toDataURL();
 	}
 }
 }

@@ -66,7 +66,17 @@ public class ScreenCaptureTest extends SampleBase
 	
 	private function saveBtnClickHandler(event:Event):void 
 	{
-		
+		var base64:* = ScreenCapture.catureAsData(Laya.stage, Laya.stage.width, Laya.stage.height);
+		//console.log(base64);
+		trace(base64)
+		/*if( window.conch )
+		{
+			window.conch.captureScreen(function(arrayBuff, width, height) 
+			{
+				window.image = window.document.createElement("img");
+				image.putImageData(arrayBuff,width,height);
+			}
+		}*/
 	}
 	
 	private function captureBtnClickHandler(event:Event):void 
