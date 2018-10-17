@@ -4,9 +4,11 @@ import components.SimpleButton;
 import laya.display.Sprite;
 import laya.display.Text;
 import laya.events.Event;
+import laya.net.HttpRequest;
 import laya.net.Loader;
 import laya.renders.Render;
 import laya.utils.Browser;
+import laya.utils.Byte;
 import laya.utils.Handler;
 import laya.utils.Tween;
 import utils.ScreenCapture;
@@ -18,7 +20,7 @@ public class ScreenCaptureTest extends SampleBase
 {
 	private var captureBtn:SimpleButton;
 	private var saveBtn:SimpleButton;
-	private var debugTxt:Text;
+	//private var debugTxt:Text;
 	private var captureSpt:Sprite;
 	public function ScreenCaptureTest() 
 	{
@@ -40,7 +42,7 @@ public class ScreenCaptureTest extends SampleBase
 			this.captureBtn.y = Laya.stage.height - 100;
 			this.captureBtn.on(Event.CLICK, this, captureBtnClickHandler);
 			
-			this.saveBtn = new SimpleButton("res/btn.png", null, null, "屏幕截取");
+			this.saveBtn = new SimpleButton("res/btn.png", null, null, "保存为二进制");
 			this.addChild(this.saveBtn);
 			this.saveBtn.x = Laya.stage.width / 2 - this.captureBtn.width - 5;
 			this.saveBtn.y = Laya.stage.height - 100;
@@ -48,7 +50,7 @@ public class ScreenCaptureTest extends SampleBase
 			
 		}), null, Loader.IMAGE);
 		
-		this.debugTxt = new Text();
+		/*this.debugTxt = new Text();
 		this.debugTxt.fontSize = 25;
 		this.debugTxt.color = "#FFFFFF";
 		this.debugTxt.x = 300;
@@ -56,27 +58,67 @@ public class ScreenCaptureTest extends SampleBase
 		
 		this.debugTxt.text = "w"+ Browser.width + " h:" + Browser.height;
 		this.debugTxt.text += "\n dw"+ Laya.stage.designWidth + " dh:" + Laya.stage.designHeight;
-		this.debugTxt.text += "\n width" + Laya.stage.width + " height:" + Laya.stage.height;
+		this.debugTxt.text += "\n width" + Laya.stage.width + " height:" + Laya.stage.height;*/
 		
 		if (Render.isConchApp)
-		{
-			this.titleLabel.text += "\n isConchApp";
-		}
+			this.titleLabel.text += "\n is conchApp";
+		else
+			this.titleLabel.text += "\n not conchApp";
 	}
 	
 	private function saveBtnClickHandler(event:Event):void 
 	{
-		var base64:* = ScreenCapture.catureAsData(Laya.stage, Laya.stage.width, Laya.stage.height);
-		//console.log(base64);
-		trace(base64)
-		/*if( window.conch )
+		if (!Render.isConchApp)
 		{
-			window.conch.captureScreen(function(arrayBuff, width, height) 
+			var base64:* = ScreenCapture.catureAsData(Laya.stage, Laya.stage.width, Laya.stage.height);
+			//LocalStorage.setItem("img", base64);
+			//trace(base64)
+			var xhr:HttpRequest = new HttpRequest();
+			xhr.once(Event.COMPLETE, this, completeHandler);
+			xhr.once(Event.ERROR, this, errorHandler);
+			xhr.send(base64, "", "get", "arraybuffer");
+		}
+		else
+		{
+			ScreenCapture.catureAsDevice("capture");
+			/*var CaptureScreenClass = Laya.PlatformClass.createClass("com.LayaGameComponents.game.CaptureScreenClass");
+			if (CaptureScreenClass)
 			{
-				window.image = window.document.createElement("img");
-				image.putImageData(arrayBuff,width,height);
-			}
-		}*/
+				CaptureScreenClass.call("capture");
+			}*/
+		}
+	}
+	
+	private function errorHandler():void 
+	{
+		trace("error");
+	}
+	
+	private function completeHandler(data:Object):void 
+	{
+		trace("completeHandler2");
+		var byte:Byte = new Byte(data);//Byte数组接收arraybuffer
+		if (this.captureSpt)
+		{
+			this.captureSpt.removeSelf();
+			this.captureSpt.destroy();
+			this.captureSpt = null;
+		}
+		
+		var blob:Object = new Browser.window.Blob([byte.buffer], { type: "image/png" } );
+		var url:String = Browser.window.URL.createObjectURL(blob);//创建一个url对象；
+		
+		trace(url);
+		
+		var sp:Sprite = new Sprite();
+		sp.loadImage(url);
+		sp.pivotX = Laya.stage.width / 2;
+		sp.pivotY = Laya.stage.height / 2;
+		sp.x = Laya.stage.width / 2;
+		sp.y = Laya.stage.height / 2;
+		Tween.to(sp, { scaleX:.5, scaleY:.5 }, 500);
+		this.addChild(sp);//添加到舞台
+		this.captureSpt = sp;
 	}
 	
 	private function captureBtnClickHandler(event:Event):void 

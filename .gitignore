@@ -1,4 +1,6 @@
 /release/*
 libs/*
 bin/*
+build/*
 /bin
+/build

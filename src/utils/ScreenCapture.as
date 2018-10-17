@@ -4,8 +4,9 @@ import laya.display.Sprite;
 import laya.renders.Render;
 import laya.resource.HTMLCanvas;
 import laya.resource.Texture;
+import laya.utils.Browser;
 /**
- * ...截屏工具 不支持native端
+ * ...截屏工具
  * @author Kanon
  */
 public class ScreenCapture 
@@ -69,6 +70,27 @@ public class ScreenCapture
 		var canvas:* = htmlCanvas.getCanvas();
 		if (!canvas) return null;
 		return canvas.toDataURL();
+	}
+	
+	/**
+	 * 设备上截图
+	 * @param	name	图片名称
+	 * @param	dir		路径（默认根目录）
+	 * @param	isPng	是否是png
+	 */
+	public static function catureAsDevice(name:String, dir:String = "/sdcard", isPng:Boolean = true):void
+	{
+		var conch = Browser.window["conch"];
+		if(conch)
+		{
+			conch.captureScreen(function(arrayBuff, width, height) 
+			{
+				if (isPng)
+					conch.saveAsPng(arrayBuff, width, height, dir + "/" + name+".png");
+				else
+					conch.saveAsJpeg(arrayBuff, width, height, dir + "/" + name+".jpg");
+			});
+		}
 	}
 }
 }
