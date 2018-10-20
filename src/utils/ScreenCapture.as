@@ -86,9 +86,9 @@ public class ScreenCapture
 			conch.captureScreen(function(arrayBuff, width, height) 
 			{
 				if (isPng)
-					conch.saveAsPng(arrayBuff, width, height, dir + "/" + name+".png");
+					conch.saveAsPng(arrayBuff, width, height, dir + "/" + name +".png");
 				else
-					conch.saveAsJpeg(arrayBuff, width, height, dir + "/" + name+".jpg");
+					conch.saveAsJpeg(arrayBuff, width, height, dir + "/" + name +".jpg");
 			});
 		}
 	}
