@@ -51,8 +51,8 @@ public class SimpleButtonTest extends SampleBase
 		this.addChild(this.btn2);
 		this.addChild(this.btn3);
 		
-		this.btn1.x = 100;
-		this.btn1.y = 250;
+		this.btn1.x = 200;
+		this.btn1.y = 450;
 		
 		this.btn2.x = this.btn1.x + this.btn1.width + 50;
 		this.btn3.x = this.btn2.x + this.btn2.width + 50;

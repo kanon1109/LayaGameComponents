@@ -34,15 +34,15 @@ public class TabBarTest extends SampleBase
 	private function loadImgComplete():void
 	{
 		this.txt = new Label();
-		this.txt.x = 300;
-		this.txt.y = 150;
+		this.txt.x = 400;
+		this.txt.y = 350;
 		this.txt.color = "#FF0000";
 		this.txt.fontSize = 20;
 		this.addChild(this.txt);
 		
 		this.tabBar = new TabBar();
-		this.tabBar.x = 100;
-		this.tabBar.y = 200;
+		this.tabBar.x = 350;
+		this.tabBar.y = 400;
 		this.tabBar.init(4, 10, "res/tab.png", "res/tabSelected.png", "res/tabPressed.png", "res/dsableTab.png",
 						Handler.create(this, tabClickHandler, null, false), 
 						Handler.create(this, tabDsableClickHandler, null, false));

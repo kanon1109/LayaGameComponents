@@ -44,12 +44,12 @@ public class ListViewTest extends SampleBase
 	
 	private function loadImgComplete():void
 	{
-		this.count = 50;
+		this.count = 100;
 		
 		this.scrollList = new ListView();
-		this.scrollList.setViewSize(100, 200);
+		this.scrollList.setViewSize(180, 500);
 		this.scrollList.gap = 10;
-		this.scrollList.x = 20;
+		this.scrollList.x = 10;
 		this.scrollList.y = 100;
 		this.scrollList.isShowDebug = true;
 		this.addChild(this.scrollList);
@@ -59,9 +59,9 @@ public class ListViewTest extends SampleBase
 		}
 		
 		this.scroll = new ScrollView();
-		this.scroll.setViewSize(100, 200);
-		this.scroll.setContentSize(100, 1800);
-		this.scroll.x = this.scrollList.x + 120;
+		this.scroll.setViewSize(180, 500);
+		this.scroll.setContentSize(180, 1800);
+		this.scroll.x = this.scrollList.x + this.scrollList.width;
 		this.scroll.y = this.scrollList.y;
 		this.scroll.isShowDebug = true;
 		this.scroll.isHorizontal = false;
@@ -74,12 +74,12 @@ public class ListViewTest extends SampleBase
 			img.y = i * 60;
 			this.scroll.addToContent(img);
 		}
-		this.count = 50
+		this.count = 5000;
 		this.updateData();
 
 		this.tableView = new TableView();
-		this.tableView.initTable(this.itemList.length, false, 212, 200, 50 + 3, 50 + 3);
-		this.tableView.x = this.scroll.x + 120;
+		this.tableView.initTable(this.itemList.length, false, 400, 500, 50 + 3, 50 + 3);
+		this.tableView.x = this.scroll.x + this.scroll.width;
 		this.tableView.y = this.scrollList.y;
 		this.tableView.isShowDebug = true;
 		//this.tableView.isBounce = false;
@@ -89,8 +89,8 @@ public class ListViewTest extends SampleBase
 		this.addChild(this.tableView);
 
 		this.pageView = new PageView();
-		this.pageView.init(this.itemList.length, true, 220, 200, 50 + 3, 50 + 3);
-		this.pageView.x = this.tableView.x + 240;
+		this.pageView.init(this.itemList.length, true, 420, 500, 50 + 3, 50 + 3);
+		this.pageView.x = this.tableView.x + this.tableView.width;
 		this.pageView.y = this.scrollList.y;
 		this.pageView.isShowDebug = true;
 		//this.pageView.isBounce = false;

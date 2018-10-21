@@ -59,7 +59,6 @@ public class ScreenCaptureTest extends SampleBase
 		if (!Render.isConchApp)
 		{
 			var base64:* = ScreenCapture.catureAsData(Laya.stage, Laya.stage.width, Laya.stage.height);
-			//trace(base64)
 			var xhr:HttpRequest = new HttpRequest();
 			xhr.once(Event.COMPLETE, this, completeHandler);
 			xhr.once(Event.ERROR, this, errorHandler);
@@ -67,27 +66,27 @@ public class ScreenCaptureTest extends SampleBase
 		}
 		else
 		{
-			
-			
 			ScreenCapture.catureAsDevice("capture");
 			/*var CaptureScreenClass = Laya.PlatformClass.createClass("com.LayaGameComponents.game.CaptureScreenClass");
 			if (CaptureScreenClass)
 				CaptureScreenClass.call("capture");*/
-				
 			if (this.captureSpt)
 			{
+				Tween.clearAll(this.captureSpt);
 				this.captureSpt.removeSelf();
 				this.captureSpt.destroy();
 				this.captureSpt = null;
 			}	
 			
 			var sp:Sprite = new Sprite();
-			sp.loadImage("file:///sdcard/capture.png");
-			sp.pivotX = Laya.stage.width / 2;
-			sp.pivotY = Laya.stage.height / 2;
-			sp.x = Laya.stage.width / 2;
-			sp.y = Laya.stage.height / 2;
-			Tween.to(sp, { scaleX:.5, scaleY:.5 }, 500);
+			sp.loadImage("file:///sdcard/capture.png", 0, 0, 0, 0, Handler.create(this, function()
+			{
+				sp.pivotX = Laya.stage.width / 2;
+				sp.pivotY = Laya.stage.height / 2;
+				sp.x = Laya.stage.width / 2;
+				sp.y = Laya.stage.height / 2;
+				Tween.to(sp, { scaleX:.5, scaleY:.5 }, 500);
+			}));
 			this.addChild(sp);//添加到舞台
 			this.captureSpt = sp;
 		}
@@ -104,6 +103,7 @@ public class ScreenCaptureTest extends SampleBase
 		var byte:Byte = new Byte(data);//Byte数组接收arraybuffer
 		if (this.captureSpt)
 		{
+			Tween.clearAll(this.captureSpt);
 			this.captureSpt.removeSelf();
 			this.captureSpt.destroy();
 			this.captureSpt = null;
@@ -128,6 +128,7 @@ public class ScreenCaptureTest extends SampleBase
 	{
 		if (this.captureSpt)
 		{
+			Tween.clearAll(this.captureSpt);
 			this.captureSpt.removeSelf();
 			this.captureSpt.destroy();
 			this.captureSpt = null;
@@ -164,6 +165,7 @@ public class ScreenCaptureTest extends SampleBase
 		
 		if (this.captureSpt)
 		{
+			Tween.clearAll(this.captureSpt);
 			this.captureSpt.removeSelf();
 			this.captureSpt.destroy();
 			this.captureSpt = null;
