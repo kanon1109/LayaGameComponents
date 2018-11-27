@@ -41,7 +41,7 @@ public class FlameGunTest extends SampleBase
 		arr.push( { url:"res/flame.png", type:Loader.IMAGE } );
 		Laya.loader.load(arr, Handler.create(this, function():void
 		{
-			this.fg = new FlameGun(this, "res/flame.png", this.spt.x, this.spt.y, 5, 0, 1, .1, 400);
+			this.fg = new FlameGun(Sprite(this), "res/flame.png", this.spt.x, this.spt.y, 5, 0, 1, .1, 400);
 			this.fg.show();
 			this.frameLoop(1, this, loop);
 		}), null, Loader.IMAGE)

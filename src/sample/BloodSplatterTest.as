@@ -1,6 +1,7 @@
 package sample 
 {
 import effect.BloodSplatter;
+import laya.display.Sprite;
 import laya.events.Event;
 import laya.net.Loader;
 import laya.ui.Label;
@@ -34,7 +35,7 @@ public class BloodSplatterTest extends SampleBase
 		arr.push( { url:"res/blood.png", type:Loader.IMAGE } );
 		Laya.loader.load(arr, Handler.create(this, function():void
 		{
-			this.bs = new BloodSplatter("res/blood.png", this);
+			this.bs = new BloodSplatter("res/blood.png", Sprite(this));
 			Laya.stage.on(Event.MOUSE_DOWN, this, onMouseDownHandler);
 			
 		}), null, Loader.IMAGE)

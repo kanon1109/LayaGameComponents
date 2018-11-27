@@ -12,8 +12,8 @@ Project configuration:e:\workspace\kanon\html5Project\layabox\layaAir\LayaGameCo
 1,0.00,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/src,0,Collect
 1,0.00,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/libs/laya/src,0,Collect
 1,2.00,,0,read class message
-1,89.70,,0,Disable Flash3D e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/src/Main.as
-12,89.70,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/bin/h5/Main.max.js,1022517,
-11,89.70,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/bin/h5/Main.max.html,887,
+1,89.95,,0,Disable Flash3D e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/src/Main.as
+12,89.95,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/bin/h5/Main.max.js,1042179,
+11,89.95,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/bin/h5/Main.max.html,887,
 ******************************************************************************
-14,89.70,,0,
+14,89.95,,0,

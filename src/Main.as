@@ -25,6 +25,7 @@ import sample.QuadraticBezierCurveTest;
 import sample.ResidueShadowTest;
 import sample.SampleBase;
 import sample.ScreenCaptureTest;
+import sample.ScreenNavigatorTest;
 import sample.SimpleButtonTest;
 import sample.SliderTest;
 import sample.SplineCurveTest;
@@ -47,7 +48,7 @@ public class Main
 		Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
-		Stat.show(Laya.stage.desginWidth - 100);
+		Stat.show(Laya.stage.width - 200, 0);
 		
 		//DebugPanel.init();
 		
@@ -62,7 +63,7 @@ public class Main
 							  new ResidueShadowTest(), new TextScrollTest(),
 							  new ChainTest(), new BloodSplatterTest(),
 							  new FlameGunTest(), new BlackHoleTest(),
-							  new ScreenCaptureTest(),
+							  new ScreenCaptureTest(), new ScreenNavigatorTest(),
 							  ];
 							  
 		this.index = 0;
