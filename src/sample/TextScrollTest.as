@@ -18,6 +18,7 @@ public class TextScrollTest extends SampleBase
 	override public function init():void 
 	{
 		super.init();
+		this.titleLabel.text = "TextScrollTest";
 		this.txt = new Text();
 		this.txt.fontSize = 25;
 		this.txt.color = "#FFFFFF";

@@ -23,6 +23,7 @@ public class FlameGunTest extends SampleBase
 	override public function init():void 
 	{
 		super.init();
+		this.titleLabel.text = "FlameGunTest";
 		this.spt = new Sprite();
 		this.spt.width = 20;
 		this.spt.height = 20;
