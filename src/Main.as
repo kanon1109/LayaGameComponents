@@ -13,6 +13,7 @@ import sample.ChainTest;
 import sample.CubicBezierCurveTest;
 import sample.EllipseCurveTest;
 import sample.FlameGunTest;
+import sample.GesturesTest;
 import sample.GraphDataMapTest;
 import sample.JoystickTest;
 import sample.LineCurveTest;
@@ -65,7 +66,7 @@ public class Main
 							  new ChainTest(), new BloodSplatterTest(),
 							  new FlameGunTest(), new BlackHoleTest(),
 							  new ScreenCaptureTest(), new ScreenNavigatorTest(),
-							  new ScrollTextTest(),
+							  new ScrollTextTest(), new GesturesTest(),
 							  ];
 							  
 		this.index = 0;
