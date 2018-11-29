@@ -53,7 +53,7 @@ public class Main
 		
 		//DebugPanel.init();
 		
-		this.sampleTestArr = [/*new SimpleButtonTest(),
+		this.sampleTestArr = [new SimpleButtonTest(),
 							  new TabBarTest(), new ListViewTest(), 
 							  new JoystickTest(), new NumericStepperTest(), 
 							  new PageIndicatorTest(), new ToggleSwitchTest(), 
@@ -63,7 +63,7 @@ public class Main
 							  new EllipseCurveTest(), new LineSegmentTest(),
 							  new ResidueShadowTest(), new TextScrollTest(),
 							  new ChainTest(), new BloodSplatterTest(),
-							  new FlameGunTest(), new BlackHoleTest(),*/
+							  new FlameGunTest(), new BlackHoleTest(),
 							  new ScreenCaptureTest(), new ScreenNavigatorTest(),
 							  new ScrollTextTest(),
 							  ];
