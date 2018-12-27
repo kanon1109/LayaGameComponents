@@ -255,15 +255,10 @@ public class SimpleButton extends Sprite
 		event.stopPropagation();
 		if (!this.selectedImg)
 		{
-			this.normalImg.scale(1, 1, false);
-			this.normalImg.x = 0;
-			this.normalImg.y = 0;
-			if (this.titleTxt)
-			{
-				this.titleTxt.scale(1, 1, false);
-				this.titleTxt.x = 0;
-				this.titleTxt.y = 0;
-			}
+			this.x = this.x - (1 - this.scaleX) * this.width / 2;
+			this.y = this.y - (1 - this.scaleY) * this.height / 2;
+			this.scaleX = 1;
+			this.scaleY = 1;
 		}
 		else
 		{
@@ -277,15 +272,10 @@ public class SimpleButton extends Sprite
 		event.stopPropagation();
 		if (!this.selectedImg)
 		{
-			this.normalImg.scale(.95, .95, false);
-			this.normalImg.x = (1 - this.normalImg.scaleX) * this.normalImg.width / 2;
-			this.normalImg.y = (1 - this.normalImg.scaleY) * this.normalImg.height / 2;
-			if (this.titleTxt)
-			{
-				this.titleTxt.scale(.95, .95, false);
-				this.titleTxt.x = (1 - this.titleTxt.scaleX) * this.titleTxt.width / 2;
-				this.titleTxt.y = (1 - this.titleTxt.scaleY) * this.titleTxt.height / 2;
-			}
+			this.scaleX = .95;
+			this.scaleY = .95;
+			this.x = this.x + (1 - this.scaleX) * this.width / 2;
+			this.y = this.y + (1 - this.scaleY) * this.height / 2;
 		}
 		else
 		{
