@@ -241,13 +241,6 @@ public class SimpleButton extends Sprite
 			this.normalImg.visible = !value;
 			this.disableImg.visible = value;
 		}
-		if (this.titleTxt)
-		{
-			if (value)
-				this.titleTxt.color = "#5D5D5D";
-			else
-				this.titleTxt.color = this.textColor;
-		}
 	}
 	
 	private function onMouseUpHandler(event:Event):void 
