@@ -229,7 +229,7 @@ public class SimpleButton extends Sprite
 	}
 	
 	/**
-	 * 是否启用
+	 * 是否禁用
 	 */
 	public function get disable():Boolean{ return _disable; }
 	public function set disable(value:Boolean):void 
