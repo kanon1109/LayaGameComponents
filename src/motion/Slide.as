@@ -16,7 +16,7 @@ public class Slide
 	 */
 	public static function createSlideLeftTransition(duration:Number = 400, ease:Function=Ease.sineOut):Function
 	{
-		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function)
+		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function):void
 		{
 			if(!oldScreen && !newScreen) return;
 			if(newScreen)
@@ -43,7 +43,7 @@ public class Slide
 	 */
 	public static function createSlideRightTransition(duration:Number = 400, ease:Function=Ease.sineOut):Function
 	{
-		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function)
+		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function):void
 		{
 			if(!oldScreen && !newScreen) return;
 			if(newScreen)
@@ -70,7 +70,7 @@ public class Slide
 	 */
 	public static function createSlideTopTransition(duration:Number = 400, ease:Function=Ease.sineOut):Function
 	{
-		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function)
+		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function):void
 		{
 			if(!oldScreen && !newScreen) return;
 			if(newScreen)
@@ -97,7 +97,7 @@ public class Slide
 	 */
 	public static function createSlideBottomTransition(duration:Number = 400, ease:Function=Ease.sineOut):Function
 	{
-		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function)
+		return function(oldScreen:Sprite, newScreen:Sprite, onComplete:Function):void
 		{
 			if(!oldScreen && !newScreen) return;
 			if(newScreen)
