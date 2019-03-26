@@ -139,7 +139,7 @@ public class Random
 	/**
 	 * 计算概率
 	 * @param	chance 概率
-	 * @return
+	 * @return	是否在概率内
 	 */
 	public static function boolean(chance:Number = .5):Boolean
 	{
@@ -156,5 +156,13 @@ public class Random
 		return parseInt(value + "");
 	}
     
+	/**
+	 * 随机字符串
+	 * @return	字符串
+	 */
+	public static function randomString():String
+	{
+		return Math.random().toString(36).substr(2);
+	}
 }
 }
