@@ -1,19 +1,2 @@
-1,0.00,,0,Project command:e:\workspace\kanon\html5Project\layabox\layaAir\LayaGameComponents/.actionScriptProperties;iflash=false;windowshow=false;chromerun=false;quickcompile=true
-Project configuration:e:\workspace\kanon\html5Project\layabox\layaAir\LayaGameComponents/.actionScriptProperties.
-1,0.00,,0,output path:e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/bin/h5/
-1,0.00,,0,Main Class:e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/src/Main.as
-1,0.00,,0,output file:Main
-1,0.00,,0,compilerSourcePath e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/libs/laya/src/
-
-1,0.00,,0,Compile Path:e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/src/
-
-1,0.00,,0,Compile Path:e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/libs/laya/src/
-
-1,0.00,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/src,0,Collect
-1,0.00,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/libs/laya/src,0,Collect
-1,2.00,,0,read class message
-1,89.95,,0,Disable Flash3D e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/src/Main.as
-12,89.95,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/bin/h5/Main.max.js,1042179,
-11,89.95,e:/workspace/kanon/html5Project/layabox/layaAir/LayaGameComponents/bin/h5/Main.max.html,887,
+Project configuration:d:\Documents\myLayaaaaqaaaaaqqsaaaaaaaareqaaaaasaaqq/.actionScriptProperties.
 ******************************************************************************
-14,89.95,,0,

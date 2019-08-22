@@ -487,6 +487,25 @@ public class MathUtil
 	}
 	
 	/**
+	 * 在数字后面格式化为 k，m，b，t，q，Q，s，S
+	 * @param	value		需要格式化的数字
+	 * @param	interval	保留小数点 
+	 * @return	返回格式化后的字符串形式数字
+	 */
+	public static function convertNumber(value:Number, interval:Number = .1):String
+	{
+		var arr:Array = ["k", "m", "b", "t", "q", "Q", "s", "S"];
+		var num:Number = Math.pow(10, 24);
+		var multi:Number = 1000;
+		for(var i:Number = arr.length - 1; i >= 0; --i)
+		{
+			if(value > num) return round((value / num), interval).toString() + arr[i];
+			num /= multi;
+		}
+        return Math.round(value).toString();
+	}
+	
+	/**
      * 获取向量与向量之间的夹角
      * @param    p1 向量对象
      * @param    p2 向量对象
