@@ -80,10 +80,10 @@ public class ScreenCapture
 	 */
 	public static function catureAsDevice(name:String, dir:String = "/sdcard", isPng:Boolean = true):void
 	{
-		var conch = Browser.window["conch"];
+		var conch:* = Browser.window["conch"];
 		if(conch)
 		{
-			conch.captureScreen(function(arrayBuff, width, height) 
+			conch.captureScreen(function(arrayBuff, width, height):void 
 			{
 				if (isPng)
 					conch.saveAsPng(arrayBuff, width, height, dir + "/" + name +".png");

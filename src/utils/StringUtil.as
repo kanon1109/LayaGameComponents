@@ -502,5 +502,36 @@ public final class StringUtil
 		}
 		return str
 	}
+	
+	/**
+	 * 将数字转换成中文形式
+	 * @param	num		数字
+	 * @return	中文形式
+	 */
+	public static function numToStr(num:Number):String 
+	{
+		if (num == null || num == "") return "0";
+		var n:Number = Number(num);
+		var h:Number;
+		var t:String = "";
+		var result:String;
+		if (n < 10000) 
+		{
+			h = n;
+			t = "";
+		} 
+		else if (n >= 10000 && n < 100000000) 
+		{
+			h = (n / 10000).toFixed(1);
+			t = "万";
+		} 
+		else if (n >= 100000000) 
+		{
+			h = (n / 100000000).toFixed(1);
+			t = "亿";
+		}
+		result = h + t;
+		return result;
+	}
 }
 }

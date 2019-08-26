@@ -79,7 +79,7 @@ public class ScreenCaptureTest extends SampleBase
 			}	
 			
 			var sp:Sprite = new Sprite();
-			sp.loadImage("file:///sdcard/capture.png", 0, 0, 0, 0, Handler.create(this, function()
+			sp.loadImage("file:///sdcard/capture.png", 0, 0, 0, 0, Handler.create(this, function():void
 			{
 				sp.pivotX = Laya.stage.width / 2;
 				sp.pivotY = Laya.stage.height / 2;

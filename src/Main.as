@@ -7,6 +7,7 @@ import laya.events.Event;
 import laya.net.Loader;
 import laya.utils.Handler;
 import laya.utils.Stat;
+// import laya.wx.mini.MiniAdpter;
 import sample.BlackHoleTest;
 import sample.BloodSplatterTest;
 import sample.ChainTest;
@@ -33,6 +34,7 @@ import sample.SliderTest;
 import sample.SplineCurveTest;
 import sample.TabBarTest;
 import sample.TextScrollTest;
+import sample.TimeUtilTest;
 import sample.ToggleSwitchTest;
 /**
  * ...入口
@@ -46,12 +48,13 @@ public class Main
 	private var sampleSpt:Sprite;
 	public function Main() 
 	{
+		// MiniAdpter.init();
 		Laya.init(1136, 768);
 		Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
 		Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
 		Laya.stage.bgColor = "#283331";
 		Stat.show(Laya.stage.width - 200, 0);
-		
+
 		//DebugPanel.init();
 		
 		this.sampleTestArr = [new SimpleButtonTest(),
@@ -67,6 +70,7 @@ public class Main
 							  new FlameGunTest(), new BlackHoleTest(),
 							  new ScreenCaptureTest(), new ScreenNavigatorTest(),
 							  new ScrollTextTest(), new GesturesTest(),
+							  new TimeUtilTest(),
 							  ];
 							  
 		this.index = 0;

@@ -14,7 +14,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2018/11/27'</value>
+      <value>'2019/3/26'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -30,17 +30,16 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>E:\workspace\kanon\html5Project\layabox\layaAir\LayaGameComponents\src</path-element>
-      <path-element>E:\workspace\kanon\html5Project\layabox\layaAir\LayaGameComponents\libs\laya\src</path-element>
-      <path-element>E:\workspace\kanon\flashProject\geckosas3lib\src</path-element>
-      <path-element>E:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>E:\workspace\kanon\laya\LayaGameComponents\src</path-element>
+      <path-element>E:\workspace\kanon\laya\LayaGameComponents\libs\laya\src</path-element>
+      <path-element>e:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>E:\workspace\kanon\html5Project\layabox\layaAir\LayaGameComponents\src\Main.as</path-element>
+    <path-element>E:\workspace\kanon\laya\LayaGameComponents\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
-  <default-frame-rate>30</default-frame-rate>
+  <default-frame-rate>60</default-frame-rate>
   <default-size>
     <width>800</width>
     <height>600</height>
