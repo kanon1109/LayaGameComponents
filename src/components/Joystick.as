@@ -28,6 +28,8 @@ public class Joystick extends Sprite
 	//是否按下
 	private var isMouseDown:Boolean;
 	//起始位置
+	private var startPt:Point;
+	//上一次的位置
 	private var prevPt:Point;
 	//当前位置
 	private var curPt:Point;
@@ -43,7 +45,8 @@ public class Joystick extends Sprite
 	public var fixType:int = 0;
 	//固定状态枚举
 	public static const FIXED:int = 0; //固定摇杆
-	public static const UNFIXED:int = 1;//不固定（点击任意位置作为起点，并且摇杆跟随拖动的位置移动）
+	public static const HALF_FIXED:int = 1;//半固定（点击任意位置作为起点）
+	public static const UNFIXED:int = 2;//不固定（点击任意位置作为起点，并且摇杆跟随拖动的位置移动）
 	public function Joystick() 
 	{
 		this.initData();
@@ -62,6 +65,7 @@ public class Joystick extends Sprite
 		this.fixType = Joystick.FIXED;
 		this.prevPt = new Point(this.width / 2, this.height / 2);
 		this.curPt = new Point(this.prevPt.x, this.prevPt.y);
+		this.startPt = new Point(this.prevPt.x, this.prevPt.y);
 	}
 	
 	/**
@@ -80,7 +84,7 @@ public class Joystick extends Sprite
 		this.on(Event.MOUSE_OUT, this, onMouseUpHandler);
 		this.on(Event.MOUSE_MOVE, this, onMouseMoveHandler);
 
-		if (this.fixType == Joystick.UNFIXED)
+		if (this.fixType >= Joystick.HALF_FIXED)
 		{
 			var pt:Point = this.globalToLocal(new Point(event.stageX, event.stageY), true);
 			this.setStickPos(pt.x, pt.y);
@@ -100,7 +104,7 @@ public class Joystick extends Sprite
 		this._joystickAngleRad = Math.atan2(this._dy, this._dx);
 		
 		var dis:Number = this.curPt.distance(this.prevPt.x, this.prevPt.y);
-		if (this.fixType == Joystick.FIXED && dis > this.maxRadius) dis = this.maxRadius; 
+		if (this.fixType < Joystick.UNFIXED && dis > this.maxRadius) dis = this.maxRadius; 
 		
 		var x:Number = Math.cos(this._joystickAngleRad) * dis + this.prevPt.x;
 		var y:Number = Math.sin(this._joystickAngleRad) * dis + this.prevPt.y;
@@ -140,9 +144,17 @@ public class Joystick extends Sprite
 		this.off(Event.MOUSE_OUT, this, onMouseUpHandler);
 		this.off(Event.MOUSE_MOVE, this, onMouseMoveHandler);
 		this.removeTween();
-		this.tween = Tween.to(this.stickImg, {x:this.prevPt.x, y:this.prevPt.y}, 200, Ease.circOut);
-		//this.stickImg.x = this.prevPt.x;
-		//this.stickImg.y = this.prevPt.y;
+		if (this.fixType == Joystick.HALF_FIXED)
+		{
+			this.stickImg.x = this.startPt.x;
+			this.stickImg.y = this.startPt.y;
+			this.baseImg.x = this.startPt.x;
+			this.baseImg.y = this.startPt.y;
+		}
+		else
+		{
+			this.tween = Tween.to(this.stickImg, {x:this.prevPt.x, y:this.prevPt.y}, 200, Ease.circOut);
+		}
 	}
 
 	/**
@@ -194,6 +206,7 @@ public class Joystick extends Sprite
 			}
 		}
 		this.setStickPos(this.prevPt.x, this.prevPt.y);
+		
 	}
 	
 	/**
@@ -207,6 +220,28 @@ public class Joystick extends Sprite
 		this.prevPt.y = y;
 		this.curPt.x = this.prevPt.x;
 		this.curPt.y = this.prevPt.y;
+		if (this.baseImg)
+		{
+			this.baseImg.x = x;
+			this.baseImg.y = y;
+			
+		}
+		if (this.stickImg)
+		{
+			this.stickImg.x = x;
+			this.stickImg.y = y;
+		}
+	}
+	
+	/**
+	 * 初始化UI其实位置
+	 * @param	x
+	 * @param	y
+	 */
+	public function initStickPos(x:Number, y:Number):void
+	{
+		this.startPt.x = x;
+		this.startPt.y = y;
 		if (this.baseImg)
 		{
 			this.baseImg.x = x;
@@ -286,7 +321,9 @@ public class Joystick extends Sprite
 		this.removeTween();
 		
 		this.mouseMoveHandler = null;
-		
+		this.startPt = null;
+		this.curPt = null;
+		this.prevPt = null;
 		this.destroy();
 		this.removeSelf();
 	}

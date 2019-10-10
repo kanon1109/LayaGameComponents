@@ -1,2 +1,23 @@
-Project configuration:d:\Documents\myLayaaaaqaaaaaqqsaaaaaaaareqaaaaasaaqq/.actionScriptProperties.
+1,0.00,,0,Project command:e:\workspace\kanon\laya\LayaGameComponents/.actionScriptProperties;iflash=false;windowshow=false;chromerun=false;quickcompile=true
+Project configuration:e:\workspace\kanon\laya\LayaGameComponents/.actionScriptProperties.
+1,0.00,,0,output path:e:/workspace/kanon/laya/LayaGameComponents/bin/h5/
+1,0.00,,0,Main Class:e:/workspace/kanon/laya/LayaGameComponents/src/Main.as
+1,0.00,,0,output file:Main
+1,0.00,,0,compilerSourcePath e:/workspace/kanon/laya/LayaGameComponents/libs/laya/src/
+
+1,0.00,,0,Compile Path:e:/workspace/kanon/laya/LayaGameComponents/src/
+
+1,0.00,,0,Compile Path:e:/workspace/kanon/laya/LayaGameComponents/libs/laya/src/
+
+1,0.00,e:/workspace/kanon/laya/LayaGameComponents/src,0,Collect
+1,0.00,e:/workspace/kanon/laya/LayaGameComponents/libs/laya/src,0,Collect
+1,2.00,,0,read class message
+7,58.03,e:/workspace/kanon/laya/LayaGameComponents/libs/laya/src/laya/d3/core/material/BlinnPhongMaterial.as,88,DEPTHTEST_LESS This variable is not defined.
+7,58.03,e:/workspace/kanon/laya/LayaGameComponents/libs/laya/src/laya/d3/core/material/BlinnPhongMaterial.as,97,DEPTHTEST_LESS This variable is not defined.
+7,58.03,e:/workspace/kanon/laya/LayaGameComponents/libs/laya/src/laya/d3/core/material/BlinnPhongMaterial.as,108,DEPTHTEST_LESS This variable is not defined.
+7,58.03,e:/workspace/kanon/laya/LayaGameComponents/libs/laya/src/laya/d3/core/material/BlinnPhongMaterial.as,119,DEPTHTEST_LESS This variable is not defined.
+1,89.76,,0,Disable Flash3D e:/workspace/kanon/laya/LayaGameComponents/src/Main.as
+12,89.76,e:/workspace/kanon/laya/LayaGameComponents/bin/h5/Main.max.js,1026562,
+11,89.76,e:/workspace/kanon/laya/LayaGameComponents/bin/h5/Main.max.html,887,
 ******************************************************************************
+14,89.76,,0,
