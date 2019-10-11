@@ -259,12 +259,45 @@ public class Vector2D
 		return new Vector2D(x, y);
 	}
     
+	/**
+	 * 截取当前向量
+	 * @param	max
+	 * @return
+	 */
+	public function truncate(max: Number): Vector2D 
+	{
+		this.length = Math.min(max, this.length);
+		return this;
+	}
+
+	/**
+	 * 反转向量
+	 * @return
+	 */
+    public function reverse(): Vector2D 
+    {
+        this._x = -this._x;
+        this._y = -this._y;
+        return this;
+    }
+
     /**
+     * 差积   差积=0为垂直
+     * @param	v2
+     * @return
+     */
+    public function crossProd(v2: Vector2D): Number 
+    {
+        return this._x * v2.y - this._y * v2.x;
+    }
+
+     /**
      * 描述向量实例的字符窜
      */
     public function toString():String
     {
        return "[Vector2D (x:" + _x + ", " + "y:" + _y + ")]";
     }
+	
 }
 }
