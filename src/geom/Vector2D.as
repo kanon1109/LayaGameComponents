@@ -290,6 +290,15 @@ public class Vector2D
     {
         return this._x * v2.y - this._y * v2.x;
     }
+	
+	/**
+	 * Determines if a given vector is to the right or left of this vector.
+	 * @return int If to the left, returns -1. If to the right, +1.
+	 */
+	public function sign(v2:Vector2D):int
+	{
+		return perp.dot(v2) < 0 ? -1 : 1;
+	}
 
      /**
      * 描述向量实例的字符窜
