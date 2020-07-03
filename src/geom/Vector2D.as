@@ -292,8 +292,8 @@ public class Vector2D
     }
 	
 	/**
-	 * Determines if a given vector is to the right or left of this vector.
-	 * @return int If to the left, returns -1. If to the right, +1.
+	 * 获取这个向量的方向
+	 * @return int 如果在左边返回-1. 如果在右边返回+1.
 	 */
 	public function sign(v2:Vector2D):int
 	{

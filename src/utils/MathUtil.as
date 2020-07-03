@@ -552,8 +552,46 @@ public class MathUtil
         //它们的叉积t = (p1 - p0) * (p2 - p0) = (px1 - px0) * (py2 - py0) - (px2 - px0) * (py1 - py0);
         let t:Number = (px1 - px0) * (py2 - py0) - (px2 - px0) * (py1 - py0);
         if(t > 0) return 1;
-        else if(t < 0) return -1
-        return 0
+        else if (t < 0) return -1;
+        return 0;
+    }
+	
+	/**
+	* 判断 点 是否在 多边形 范围内
+	* @param point 点x,y 
+	* @param ps 多边形顶点数组
+	* @returns boolean
+	*/
+	public static function isInPolygon(point:Point, ps:Array):Boolean
+    {
+		//http://www.html-js.com/article/1528
+		var px:Number = point.x;
+		var py:Number = point.y; 
+		var flag:Boolean;
+		for(var i:Number = 0, l = ps.length, j = l - 1; i < l; j = i, i++) 
+        {
+			var sx:Number = ps[i].x;
+			var sy:Number = ps[i].y; 
+			var tx:Number = ps[j].x;
+			var ty:Number = ps[j].y;
+			// 点与多边形顶点重合
+			if((sx === px && sy === py) || (tx === px && ty === py)) 
+				return true;
+            
+			// 判断线段两端点是否在射线两侧
+			if((sy < py && ty >= py) || (sy >= py && ty < py)) 
+            {
+				// 线段上与射线 Y 坐标相同的点的 X 坐标
+				var x:Number = sx + (py - sy) * (tx - sx) / (ty - sy)
+				if(x === px) {// 点在多边形的边上
+					return true;
+				}
+				if(x > px) {// 射线穿过多边形的边界
+					flag = !flag
+				}
+			}
+		}
+		return flag;
     }
 }
 }
