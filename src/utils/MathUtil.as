@@ -520,5 +520,40 @@ public class MathUtil
         if (degrees) return MathUtil.rds2dgs(radians);
         return radians;
     }
+	
+	/**
+	 * 缓动角度跟随
+	 */
+	public static function rotateEase(originRot:Number, 
+                             originX:Number, originY:Number, 
+                             targetX:Number, targetY:Number, ease:Number = .2):Number
+	{
+		var dx:Number = (originX - targetX);
+		var dy:Number = (originY - targetY);
+		var r:Number = Math.atan2(dy, dx);//通过两点间的角度获取
+		
+		var targetRotation:Number = r * 180 / Math.PI;
+		if (targetRotation > originRot + 180) targetRotation -= 360;
+		if (targetRotation < originRot - 180) targetRotation += 360;
+		return (targetRotation - originRot) * ease;
+	}
+	
+	/**
+     * 给定两个有公共端点的矢量 (px0, py0, px1, py1), (px0, py0, px2, py2) 获取两个点的位置关系
+     * @reutrn   如果为>0，说明在顺时针位置（右边），
+     *           如果为<0，在逆时针（左边）
+     *           如果为==0，则p1和p2共线，方向相同或相反 
+     */
+    public static function checkPointDirection(px0:Number, py0:Number, 
+												px1:Number, py1:Number,
+												px2:Number, py2:Number):Number
+    {
+        //以p0为原点建立坐标系，那么P1 = p1 - p0, P2 = p2 - p0,
+        //它们的叉积t = (p1 - p0) * (p2 - p0) = (px1 - px0) * (py2 - py0) - (px2 - px0) * (py1 - py0);
+        let t:Number = (px1 - px0) * (py2 - py0) - (px2 - px0) * (py1 - py0);
+        if(t > 0) return 1;
+        else if(t < 0) return -1
+        return 0
+    }
 }
 }
