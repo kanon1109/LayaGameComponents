@@ -42,10 +42,10 @@ public class JoystickTest extends SampleBase
 		
 		this.dirJoystick = new Joystick();
 		this.dirJoystick.initUI("res/joystick.png", "res/base.png");
-		this.dirJoystick.setStickPos(Laya.stage.width / 2 - 120, Laya.stage.height - 200);
+		this.dirJoystick.initStickPos(Laya.stage.width / 2 - 120, Laya.stage.height - 200);
 		this.dirJoystick.size(Laya.stage.width / 2, Laya.stage.height);
 		this.dirJoystick.x = Laya.stage.width / 2;
-		this.dirJoystick.fixType = Joystick.UNFIXED;
+		this.dirJoystick.fixType = Joystick.HALF_FIXED;
 		this.dirJoystick.mouseMoveHandler = new Handler(this, dirJoystickMouseMoveHandler);
 		this.addChild(this.dirJoystick);
 		
